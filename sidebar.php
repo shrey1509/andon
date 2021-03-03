@@ -9,12 +9,12 @@ if($op=="operator")
             </div>
             <ul class="list-unstyled components">
                 <li>
-                    <div class="card" style="background-color: #009bcc; width: 100% ">
-                        <img class="card-img-top rounded-circle" src="logo.png" alt="Card image cap" style="height: 75px;width: 100px;background-color: #eee;margin: auto;border: solid black 3px;">
-                        <div class="card-body" style="background-color: #eee;">
-                            <p class="card-text" style="color: black;padding: 0px;text-align: center;margin-bottom: 0px"><?php echo ucwords($row["name"]); ?></p>
-                            <p class="card-text" style="color: black;padding: 0px;text-align: center;margin-bottom: 0px"><?php echo ucwords($row["usergroup"]); ?></p>
-                            <p class="card-text" style="color: black;padding: 0px;text-align: center;margin-bottom: 0px"><?php echo ucwords($row["designation"]); ?></p>
+                    <div class="card" style="background-color: #009bcc; width: 100%;position: relative;">
+                        <img class="card-img-top" src="logo.png" alt="Card image cap" style="height: 75px;width: 100px;background-color: #eee;margin: auto;border: solid black 5px;position: absolute;top: 5px;left: 78px;border-radius: 50%">
+                        <div class="card-body" style="background-color: #eee;border-radius: 20px;margin: 10px;margin-top: 55px">
+                            <p class="card-text" style="color: black;padding: 0px;text-align: center;margin-bottom: 0px;font-weight: bold;font-size: medium;"><?php echo ucwords($row["name"]); ?></p>
+                            <p class="card-text" style="color: black;padding: 0px;text-align: center;margin-bottom: 0px;font-size: small;"><?php echo ucwords($row["usergroup"]); ?></p>
+                            <p class="card-text" style="color: black;padding: 0px;text-align: center;margin-bottom: 0px;font-size: small;"><?php echo ucwords($row["designation"]); ?></p>
                         </div>
                     </div>
                 </li>                
@@ -61,12 +61,12 @@ else if($op=="floor manager")
             </div>
             <ul class="list-unstyled components">
                 <li>
-                    <div class="card" style="background-color: #009bcc; width: 100% ">
-                        <img class="card-img-top rounded-circle" src="logo.png" alt="Card image cap" style="height: 75px;width: 100px;background-color: #eee;margin: auto;border: solid black 3px;">
-                        <div class="card-body" style="background-color: #eee;">
-                            <p class="card-text" style="color: black;padding: 0px;text-align: center;margin-bottom: 0px"><?php echo ucwords($row["name"]); ?></p>
-                            <p class="card-text" style="color: black;padding: 0px;text-align: center;margin-bottom: 0px"><?php echo ucwords($row["usergroup"]); ?></p>
-                            <p class="card-text" style="color: black;padding: 0px;text-align: center;margin-bottom: 0px"><?php echo ucwords($row["designation"]); ?></p>
+                    <div class="card" style="background-color: #009bcc; width: 100%;position: relative;">
+                        <img class="card-img-top" src="logo.png" alt="Card image cap" style="height: 75px;width: 100px;background-color: #eee;margin: auto;border: solid black 5px;position: absolute;top: 5px;left: 78px;border-radius: 50%">
+                        <div class="card-body" style="background-color: #eee;border-radius: 20px;margin: 10px;margin-top: 55px">
+                            <p class="card-text" style="color: black;padding: 0px;text-align: center;margin-bottom: 0px;font-weight: bold;font-size: medium;"><?php echo ucwords($row["name"]); ?></p>
+                            <p class="card-text" style="color: black;padding: 0px;text-align: center;margin-bottom: 0px;font-size: small;"><?php echo ucwords($row["usergroup"]); ?></p>
+                            <p class="card-text" style="color: black;padding: 0px;text-align: center;margin-bottom: 0px;font-size: small;"><?php echo ucwords($row["designation"]); ?></p>
                         </div>
                     </div>
                 </li>                
@@ -101,12 +101,12 @@ else if($op=="admin")
             </div>
             <ul class="list-unstyled components">
                 <li>
-                    <div class="card" style="background-color: #009bcc; width: 100% ">
-                        <img class="card-img-top rounded-circle" src="logo.png" alt="Card image cap" style="height: 75px;width: 100px;background-color: #eee;margin: auto;border: solid black 3px;">
-                        <div class="card-body" style="background-color: #eee;">
-                            <p class="card-text" style="color: black;padding: 0px;text-align: center;margin-bottom: 0px"><?php echo ucwords($row["name"]); ?></p>
-                            <p class="card-text" style="color: black;padding: 0px;text-align: center;margin-bottom: 0px"><?php echo ucwords($row["usergroup"]); ?></p>
-                            <p class="card-text" style="color: black;padding: 0px;text-align: center;margin-bottom: 0px"><?php echo ucwords($row["designation"]); ?></p>
+                    <div class="card" style="background-color: #009bcc; width: 100%;position: relative;">
+                        <img class="card-img-top" src="logo.png" alt="Card image cap" style="height: 75px;width: 100px;background-color: #eee;margin: auto;border: solid black 5px;position: absolute;top: 5px;left: 78px;border-radius: 50%">
+                        <div class="card-body" style="background-color: #eee;border-radius: 20px;margin: 10px;margin-top: 55px">
+                            <p class="card-text" style="color: black;padding: 0px;text-align: center;margin-bottom: 0px;font-weight: bold;font-size: medium;"><?php echo ucwords($row["name"]); ?></p>
+                            <p class="card-text" style="color: black;padding: 0px;text-align: center;margin-bottom: 0px;font-size: small;"><?php echo ucwords($row["usergroup"]); ?></p>
+                            <p class="card-text" style="color: black;padding: 0px;text-align: center;margin-bottom: 0px;font-size: small;"><?php echo ucwords($row["designation"]); ?></p>
                         </div>
                     </div>
                 </li>                
