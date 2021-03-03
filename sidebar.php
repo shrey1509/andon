@@ -1,7 +1,7 @@
 <?php
 if($op=="operator")
 {
- echo '<nav id="sidebar">
+  ?><nav id="sidebar">
             <div class="sidebar-header">
                 <a class="navbar-brand" href="#">
                     <img alt="Brand" src="logo.png" style="height: 75px;width: 100%;background-color: white;margin-left: 15px;" align="center">
@@ -45,11 +45,15 @@ if($op=="operator")
                     </div>
                 </li>              
             </ul>
-        </nav>';
+        </nav>
+        <?php
+
 }
+
 else if($op=="floor manager")
 {
-	echo '<nav id="sidebar">
+?>
+	<nav id="sidebar">
             <div class="sidebar-header">
                 <a class="navbar-brand" href="#">
                     <img alt="Brand" src="logo.png" style="height: 75px;width: 100%;background-color: white;margin-left: 15px;" align="center">
@@ -83,12 +87,13 @@ else if($op=="floor manager")
                     </div>
                 </li>              
             </ul>
-        </nav>';
-
+        </nav>
+<?php
 }
 else if($op=="admin")
 {
-	echo '<nav id="sidebar">
+	?>
+		<nav id="sidebar">
             <div class="sidebar-header">
                 <a class="navbar-brand" href="#">
                     <img alt="Brand" src="logo.png" style="height: 75px;width: 100%;background-color: white;margin-left: 15px;" align="center">
@@ -127,7 +132,8 @@ else if($op=="admin")
                     </div>
                 </li>              
             </ul>
-        </nav>';
+        </nav>
+        <?php
 }
 
 ?>
