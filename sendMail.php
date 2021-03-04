@@ -25,20 +25,20 @@
 	$mail->SMTPAuth = true;      
 	$mail->SMTPSecure = 'tls';                    
 	//Provide username and password     
-	$mail->Username = "shreyaswaitforitdorle@gmail.com";                 
-	$mail->Password = "waitingforit";                           
+	$mail->Username = "";//email                 
+	$mail->Password = "";//pass                           
 	                          
 	//Set TCP port to connect to
 	$mail->Port = 587;                                   
 
-	$mail->From = "shreyaswaitforitdorle@gmail.com";
-	$mail->FromName = "shreyas";
+	$mail->From = "";//from email
+	$mail->FromName = "";
 
-	$mail->addAddress($email, "Dorle");
+	$mail->addAddress($email, "");//recepient email
 
 	$mail->isHTML(true);
 
-	$mail->Subject = "Change OTP";
+	$mail->Subject = "Your OTP";
 	$mail->Body = "<i>OTP:</i>".$otp;
 	$mail->AltBody = "Try";
 
