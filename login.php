@@ -133,7 +133,7 @@
               <div class="col-sm-2"></div>
               <div class="col-sm-8 center" >
                 <div class="input-group mb-3" style="justify-content: center; margin: auto;">
-                  <a href="#" style="color: white;text-align: center;">Sign Up</a>
+                  <a href="checkMail.php" style="color: white;text-align: center;">Sign Up</a>
                 </div>
               </div>
               <div class="col-sm-2"></div>

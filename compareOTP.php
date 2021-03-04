@@ -14,7 +14,7 @@
 			 
 			
 			$_SESSION['status']=1;
-			header("Location: login.php");
+			header("Location: createAccountFinal.html");
 			
 
 		}

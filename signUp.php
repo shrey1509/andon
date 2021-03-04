@@ -3,7 +3,7 @@
 	include 'resources/connect.php';
 	$tableName = "employee";
     $name = $conn->real_escape_string($_POST['name']);
-	$username = $conn->real_escape_string($_POST['username']);
+	$username = $_SESSION['email'];
 	$password = $conn->real_escape_string($_POST['password']);
     $designation = $conn->real_escape_string($_POST['designation']);
 
