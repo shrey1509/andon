@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Andon System</title>
+  <title></title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
   <style type="text/css">
@@ -42,6 +42,7 @@
     <section style="background-color: #2596be; height: 30px;"></section>
   </header>
 
+  <!-- Login Container -->
   <div class="container" style="margin-top: 50px;">
     <div class="row">
       <div class="col-sm-4"></div>
@@ -55,31 +56,45 @@
             </div>
             <div class="col-sm-4" style="background-color: #eee"></div>
           </div>
-          <div class="row" >
-            <div class="col-sm-2"></div>
-            <div class="col-sm-8  center" >
-              <div class="card card-body bg-light" style="margin-top: 20px;">Invalid Credentials. <a href="login.php">Login Again.</a></div>
-              <div class="input-group mb-3" style="justify-content: center; margin: auto;" >
-                <a href="#" style="color: white;text-align: center;">Forgot Password</a>
+          <form action="compareOTP.php" method="POST" id="loginForm">
+             <div class="row" style="width: 100%;margin-top: 20px">
+              <div class="col-sm-1"></div>
+              <div class="col-sm-10 center" >
+                <div class="form-group">
+                  <label for="username" style="color: white;font-weight: bold;">Enter OTP:</label>
+                  <input type="text" id="username" autocomplete="off" class="form-control round" placeholder="Check your Mail for OTP" name="otp">
+                  <div class="invalid-feedback" style="font-weight: bold;">Check your email for OTP</div>
+                </div>
               </div>
+              <div class="col-sm-1"></div>
             </div>
-            <div class="col-sm-2"></div>
-          </div>
 
-          <div class="row" >
-            <div class="col-sm-2"></div>
-            <div class="col-sm-8 center" >
-              <div class="input-group mb-3" style="justify-content: center; margin: auto;">
-                <a href="#" style="color: white;text-align: center;">Sign Up</a>
+            <div class="row" >
+              <div class="col-sm-2"></div>
+              <div class="col-sm-8 center" >
+                <div class="input-group mb-3" style="justify-content: center; margin: auto;">
+                  <input class="round btn btn-light" type="button" value="Submit" onclick="alert1();">
+                </div>
               </div>
+              <div class="col-sm-2"></div>
             </div>
-            <div class="col-sm-2"></div>
-          </div>
+
+            <div class="row" >
+              <div class="col-sm-2"></div>
+              <div class="col-sm-8  center" >
+                <div class="input-group mb-3" style="justify-content: center; margin: auto;" >
+                  <a href="#" style="color: white;text-align: center;">Resend OTP</a>
+                </div>
+              </div>
+              <div class="col-sm-2"></div>
+            </div>
+
+          </form>
         </div>
       </div>
       <div class="col-sm-4"></div>
     </div>
-  </div>  
+  </div>
   
   <!-- Footer -->
   <footer style="background-color: #2596be;height: 50px;">
@@ -91,5 +106,24 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+  <script type="text/javascript">
+    
+    // function validateAndSubmit() {
+    //   var usergroup = document.getElementById('usergroup').value
+    //   var username = document.getElementById('username').value
+    //   var password = document.getElementById('password').value
+    //   var form = document.getElementById('loginForm')
+    //   if(validate(usergroup, username, password) == 1) {
+    //     form.submit();
+    //   }
+    // }
+    function alert1()
+    {
+      
+      let fm= document.getElementById('loginForm');
+      fm.submit();
+    }
+
+  </script>
 </body>
 </html>

@@ -1,7 +1,18 @@
+<?php
+    session_start();
+    if(isset($_SESSION['status'])) {
+      if($_SESSION['status']==0)
+      {
+        echo '<script>alert("OTP incorrect, please try again.");</script>';
+      }
+      unset($_SESSION['status']);
+    }
+        
+?>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Andon System</title>
+  <title></title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
   <style type="text/css">
@@ -37,16 +48,16 @@
 </head>
 <body>
 
-  <!-- Header -->
   <header style="background-color: grey;height: 50px;">
     <section style="background-color: #2596be; height: 30px;"></section>
   </header>
 
+  <!-- Login Container -->
   <div class="container" style="margin-top: 50px;">
     <div class="row">
       <div class="col-sm-4"></div>
       <div class="col-sm-4 background shad " style="padding: 0px;">
-        <div class="overlay" style="width: 100%">
+        <div class="overlay" style="width: 100%;height: 100%"">
           <div class="row" style="padding: 0px 15px 0px 15px;">
             <div class="col-sm-4" style="background-color: #eee;"></div>
             <div class="col-sm-4 " style="background-color: #eee">
@@ -55,31 +66,35 @@
             </div>
             <div class="col-sm-4" style="background-color: #eee"></div>
           </div>
-          <div class="row" >
-            <div class="col-sm-2"></div>
-            <div class="col-sm-8  center" >
-              <div class="card card-body bg-light" style="margin-top: 20px;">Invalid Credentials. <a href="login.php">Login Again.</a></div>
-              <div class="input-group mb-3" style="justify-content: center; margin: auto;" >
-                <a href="#" style="color: white;text-align: center;">Forgot Password</a>
+          <form action="sendMail.php" method="POST" id="loginForm">
+             <div class="row" style="width: 100%;margin-top: 20px">
+              <div class="col-sm-1"></div>
+              <div class="col-sm-10 center" >
+                <div class="form-group">
+                  <label for="username" style="color: white;font-weight: bold;">Enter email:</label>
+                  <input type="text" id="username" autocomplete="off" class="form-control round" placeholder="Enter your Mail for OTP" name="email">
+                  <div class="invalid-feedback" style="font-weight: bold;">Enter your email for OTP</div>
+                </div>
               </div>
+              <div class="col-sm-1"></div>
             </div>
-            <div class="col-sm-2"></div>
-          </div>
 
-          <div class="row" >
-            <div class="col-sm-2"></div>
-            <div class="col-sm-8 center" >
-              <div class="input-group mb-3" style="justify-content: center; margin: auto;">
-                <a href="#" style="color: white;text-align: center;">Sign Up</a>
+            <div class="row" >
+              <div class="col-sm-2"></div>
+              <div class="col-sm-8 center" >
+                <div class="input-group mb-3" style="justify-content: center; margin: auto;">
+                  <input class="round btn btn-light" type="button" value="Submit" onclick="alert1();">
+                </div>
               </div>
+              <div class="col-sm-2"></div>
             </div>
-            <div class="col-sm-2"></div>
-          </div>
+
+          </form>
         </div>
       </div>
       <div class="col-sm-4"></div>
     </div>
-  </div>  
+  </div>
   
   <!-- Footer -->
   <footer style="background-color: #2596be;height: 50px;">
@@ -91,5 +106,26 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+  <script type="text/javascript">
+    
+    var url_string = document.URL;
+    console.log(url_string);
+    var url = new URL(url_string);
+    var status = url.searchParams.get("status");
+    console.log(status);
+ 
+        if(status.localeCompare("failure")==0)
+          {
+          alert("Wrong OTP, please try again.");
+          }
+
+    function alert1()
+    {
+      alert("Mail Sent");
+      let fm= document.getElementById('loginForm');
+      fm.submit();
+    }
+
+  </script>
 </body>
 </html>
