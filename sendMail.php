@@ -7,7 +7,7 @@
 	$email = $_POST['email'];
 	$otp = rand(1000,9999);
 	$_SESSION['otp']=$otp;
-
+	$_SESSION['email']=$email;
 	
 
 	
