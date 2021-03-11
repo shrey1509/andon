@@ -25,15 +25,10 @@ if($op=="operator")
                 </li>
                 <li>
                     <div align="center" style="padding-top: 20px">
-                        <a href="#" class="btn btn-danger btn-lg active" role="button" aria-pressed="true" style="background-color: white;color: black;border-radius: 20px;border-color: white;text-align:center;width: 90%" ><i class="fas fa-user"></i> Notify Staff</a>
+                        <a href="issueUnresolved.php" class="btn btn-danger btn-lg active" role="button" aria-pressed="true" style="background-color: white;color: black;border-radius: 20px;border-color: white;text-align:center;width: 90%" ><i class="fas fa-user"></i> Notify Staff</a>
                     </div>
                 </li>
-                <li>
-                    <div align="center" style="padding-top: 20px">
-                        <a href="#" class="btn btn-danger btn-lg active" role="button" aria-pressed="true" style="background-color: white;color: black;border-radius: 20px;border-color: white;text-align:center;width: 90%" ><i class="fas fa-tasks"></i> Instructions</a>
-
-                    </div>
-                </li>
+                
                 <li>
                     <div align="center" id="clk" style="padding-top: 20px;display: none">
                         <label for="t1" style="text-align: left;color: black">Time Taken:</label>

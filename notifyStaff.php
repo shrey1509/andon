@@ -79,6 +79,8 @@
 	$mail->FromName = "";
 
 	while (list ($key, $val) = each ($email)) {
+		$mail->AddAddress($val);
+	}
 
 
 	$mail->isHTML(true);

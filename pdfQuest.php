@@ -103,7 +103,7 @@
                                             $answers=explode(";", $answersOver[$i]);
                                             for ($k=0; $k <count($answers) ; $k++) { 
                                                     
-                                                echo '<label><input type="radio" onclick="getquest('.$i.');" name="ans'.$i.'"> '.$answers[$k].'   </label>';
+                                                echo '<label><input type="radio" onclick="getquest('.$i.');" name="ans'.$i.'" required="required"> '.$answers[$k].'   </label>';
                                                 echo "  ";
                                             }
                                                 
@@ -122,8 +122,8 @@
 
                     
                     <div class="input-group mb-3 col-sm-12 d-flex justify-content-center" style=";margin-top: 20px;margin-bottom: 500px">
-                    <a href="issueUnresolved.php" id="Displplaytimetaken" class="btn btn-danger btn-lg active" role="button" aria-pressed="true" style="border-radius: 20px;margin: 5px">Issue Unresolved</a>
-                    <a href="operator.php" id="Displplaytimetaken" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" style="border-radius: 20px;margin: 5px">Issue Resolved</a>
+                    <a href="issueUnresolved.php" id="Displaytimetaken" class="btn btn-danger btn-lg active" role="button" type="submit" aria-pressed="true" style="border-radius: 20px;margin: 5px">Issue Unresolved</a>
+                    <a href="operator.php" id="Displaytimetaken" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" type="submit" style="border-radius: 20px;margin: 5px">Issue Resolved</a>
                     </div> 
 
                     <div style="height: 100px">
