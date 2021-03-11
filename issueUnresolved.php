@@ -81,25 +81,26 @@
                 </div>
             </div>
 
-            <form action="notifyStaff.php" method="POST">
+            <form action="notifyStaff.php" method="POST" id="opForm">
                 <div class="row" style="margin-top: 50px;margin-left: 50px">
                     <div class="col-sm-4" style="height: 50px">
                         <div>
                             <h5 style="border-radius: 20px;background-color: #009bcc;color: white;width: 200px;text-align: center;padding: 5px">Supply chain</h5>
-                            <select class="form-control" id="sel1" name="sc" style="width: 200px;border-radius: 20px">
+                            <select class="form-control" id="scSel" name="sc" style="width: 200px;border-radius: 20px">
                                 <option value="">Select Reason</option>
                                 <option>sc1</option>
                                 <option>sc2</option>
                                 <option>sc3</option>
                               
                             </select>
+
                         </div>
 
                     </div>
                     <div class="col-sm-4" style="height: 50px">
                         <div>
                             <h5 style="border-radius: 20px;background-color: #009bcc;color: white;width: 200px;text-align: center;padding: 5px">Maintainence</h5>
-                            <select class="form-control" id="sel1" name="m" style="width: 200px;border-radius: 20px">
+                            <select class="form-control" id="mSel" name="m" style="width: 200px;border-radius: 20px">
                                 <option value="">Select Reason</option>
                                 <option>m1</option>
                                 <option>m2</option>
@@ -112,7 +113,7 @@
                     <div class="col-sm-4" style="height: 50px">
                         <div>
                             <h5 style="border-radius: 20px;background-color: #009bcc;color: white;width: 200px;text-align: center;padding: 5px">Production</h5>
-                            <select class="form-control" id="sel1" name="p" style="width: 200px;border-radius: 20px">
+                            <select class="form-control" id="pSel" name="p" style="width: 200px;border-radius: 20px">
                                 <option value="">Select Reason</option> 
                                 <option>p1</option>
                                 <option>p2</option>
@@ -127,7 +128,7 @@
                     <div class="col-sm-4" style="height: 50px">
                         <div>
                             <h5 style="border-radius: 20px;background-color: #009bcc;color: white;width: 200px;text-align: center;padding: 5px">Store</h5>
-                            <select class="form-control" id="sel1" name="s" style="width: 200px;border-radius: 20px">
+                            <select class="form-control" id="sSel" name="s" style="width: 200px;border-radius: 20px">
                                 <option value="">Select Reason</option>
                                 <option>s1</option>
                                 <option>s2</option>
@@ -140,7 +141,7 @@
                     <div class="col-sm-4" style="height: 50px">
                         <div>
                             <h5 style="border-radius: 20px;background-color: #009bcc;color: white;width: 200px;text-align: center;padding: 5px">Quality</h5>
-                            <select class="form-control" id="sel1" name="q" style="width: 200px;border-radius: 20px">
+                            <select class="form-control" id="qSel" name="q" style="width: 200px;border-radius: 20px">
                                 <option value="">Select Reason</option>
                                 <option>q1</option>
                                 <option>q2</option>
@@ -153,7 +154,7 @@
                     <div class="col-sm-4" style="height: 50px">
                         <div>
                             <h5 style="border-radius: 20px;background-color: #009bcc;color: white;width: 200px;text-align: center;padding: 5px">Methods</h5>
-                            <select class="form-control" id="sel1" name="mt" style="width: 200px;border-radius: 20px">
+                            <select class="form-control" id="mtSel" name="mt" style="width: 200px;border-radius: 20px">
                                 <option value="">Select Reason</option>
                                 <option>mt1</option>
                                 <option>mt2</option>
@@ -166,7 +167,7 @@
                 </div>
                 <div class="row">
                     <div class="input-group mb-3 col-sm-12 d-flex justify-content-center" style=";margin-top: 75px;">
-                        <input class="btn btn-danger" type="submit" value="Notify Staff" style="padding: 10px;border-radius: 50px">
+                        <input class="btn btn-danger" type="button" onclick="validateAndSubmit();" value="Notify Staff" style="padding: 10px;border-radius: 50px">
                     </div>
                 </div>
             </form>
@@ -213,6 +214,38 @@
 
         function logout() {
             window.location.assign("logout.php");
+        }
+
+        function validate(scSel,mSel,pSel,sSel,qSel,mtSel) {
+          var flag = 0;
+
+          if(scSel === "" && mSel === "" && pSel === "" && sSel === "" && qSel === "" && mtSel === "") {
+            alert("Select at least one andon to raise!");
+            
+            
+          } else {
+            flag = 1;
+            
+          }
+
+          
+            console.log(flag);
+          return flag;
+
+        }
+
+        function validateAndSubmit() {
+          var scSel = document.getElementById('scSel').value
+          var mSel = document.getElementById('mSel').value
+          var pSel = document.getElementById('pSel').value
+          var sSel = document.getElementById('sSel').value
+          var qSel = document.getElementById('qSel').value
+          var mtSel = document.getElementById('mtSel').value
+          var form = document.getElementById('opForm')
+          if(validate(scSel,mSel,pSel,sSel,qSel,mtSel) == 1) {
+
+            form.submit();
+          }
         }
 
 
