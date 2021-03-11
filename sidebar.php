@@ -20,28 +20,34 @@ if($op=="operator")
                 </li>                
                 <li>
                     <div align="center" style="padding-top: 20px">
-                        <button class="btn btn-secondary btn-lg" type="submit"  style="background-color: white;color: black;border-radius: 20px;border-color: white;text-align:center;;width: 90%" ><i class="fas fa-home"></i> Home</button>
+                        <a href="operator.php" class="btn btn-danger btn-lg active" role="button" aria-pressed="true" style="background-color: white;color: black;border-radius: 20px;border-color: white;text-align:center;width: 90%" ><i class="fas fa-home"></i> Raise Issue</a>
                     </div>
                 </li>
                 <li>
                     <div align="center" style="padding-top: 20px">
-                        <button class="btn btn-secondary btn-lg" type="submit" style="background-color: white;color: black;border-radius: 20px;border-color: white;width: 90%"><span class="align-left" style="display: inline-flex;align-items: left" ><i class="fas fa-user" style="vertical-align: left"></i></span><span> Members</span>  </button>
+                        <a href="#" class="btn btn-danger btn-lg active" role="button" aria-pressed="true" style="background-color: white;color: black;border-radius: 20px;border-color: white;text-align:center;width: 90%" ><i class="fas fa-user"></i> Notify Staff</a>
                     </div>
                 </li>
                 <li>
                     <div align="center" style="padding-top: 20px">
-                        <button class="btn btn-secondary btn-lg" type="submit" style="background-color: white;color: black;border-radius: 20px;border-color: white;width: 90%"><span class="align-left" style="display: inline-flex;align-items: left" ><i class="fas fa-tasks" style="vertical-align: left"></i></span><span> Instructions</span>  </button>
+                        <a href="#" class="btn btn-danger btn-lg active" role="button" aria-pressed="true" style="background-color: white;color: black;border-radius: 20px;border-color: white;text-align:center;width: 90%" ><i class="fas fa-tasks"></i> Instructions</a>
+
                     </div>
                 </li>
                 <li>
-                   <div align="center" style="padding-top: 20px;">
-                        <button class="btn btn-secondary btn-lg" type="submit" style="background-color: white;color: black;border-radius: 20px;border-color: white;width: 90%"><i class="fas fa-exclamation"></i> Andons</button>
-                    </div>
-                </li>
-                <li>
-                    <div align="center" style="padding-top: 20px">
-                        <label for="t1" style="text-align: left;color: black">Sr.no</label>
-                        <textarea class="form-control" id="t1" rows="1" style="border-radius: 20px;width: 90%"></textarea>
+                    <div align="center" id="clk" style="padding-top: 20px;display: none">
+                        <label for="t1" style="text-align: left;color: black">Time Taken:</label>
+                        <div class="clock"  style="background-color: white;border-radius: 20px;width: 90%">
+                            <h4 style="color: black">
+                                <span id="hour">00</span>
+                                <span >:</span>
+                                <span id="minute">00</span>
+                                <span >:</span>
+                                <span id="seconds">00</span>
+                            </h4>
+                            <h1 id="timetaken">
+                             </h1>
+                        </div>
                     </div>
                 </li>              
             </ul>

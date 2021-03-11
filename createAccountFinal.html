@@ -192,11 +192,10 @@
     function validateAndSubmit() {
       let name = document.getElementById('name').value;
       let usergroup = document.getElementById('usergroup').value;
-      let username = document.getElementById('username').value;
       let designation = document.getElementById('designation').value;
       let password = document.getElementById('password').value;
       let form = document.getElementById('loginForm');
-      if(validate(name, usergroup, username, designation, password) == 1) {
+      if(validate(name, usergroup, designation, password) == 1) {
         form.submit();
       }
     }

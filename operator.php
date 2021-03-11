@@ -3,11 +3,17 @@
     if(isset($_SESSION['userid'])) {
         include 'resources/connect.php';
         $tableName = "employee";
+        $tableName1 = "linestation";
+        $tableName2 = "variant";
         $id = $_SESSION['userid'];
         $op = $_SESSION['usergroup'];
         $sql = "SELECT * FROM $tableName WHERE id = $id";
         $result = $conn->query($sql);
         $row = $result->fetch_assoc();
+        $sql1 = "SELECT * FROM $tableName1";
+        $result1 = $conn->query($sql1);
+        $sql2 = "SELECT DISTINCT variant FROM $tableName2";
+        $result2 = $conn->query($sql2);
 ?>
 
 <!DOCTYPE html>
@@ -57,54 +63,63 @@
                     
                 </div>
             </div>
+            
+            <form action="setOperator.php" method="POST">
+                <div class="row" style="margin-top: 20px">
 
-            <div class="row" style="margin-top: 20px">
+                    <div class="col-sm-12" style="margin-left: 60px">
+                        <div class="d-flex justify-content-center" style="background-color: #009bcc;border-radius: 20px;width: 90%">
 
-                <div class="col-sm-12" style="margin-left: 60px">
-                    <div class="d-flex justify-content-center" style="background-color: #009bcc;border-radius: 20px;width: 90%">
+                            <div class="form-group " style="width: 100%;margin-left: 10px;padding: 10px">
+                                <label for="line" style="color: white">Line Number:</label>
+                                <select class="form-control" id="line" name="lineSel" style="background-color: transparent;border: 0px solid white;color: white;border-bottom-width: 2px;">
+                                    <option value="0">Select Line Number</option> 
+                                    <?php
+                                     	while ($row1=$result1->fetch_assoc()) {
+                                     		echo '<option value="'.$row1['lineno'].'">'.$row1['lineno'].'</option>';
+                                     	}
+                                     ?>
+                                </select>
+                            </div>
 
-                        <div class="form-group " style="width: 100%;margin-left: 10px;padding: 10px">
-                            <label for="sel1" style="color: white">Line Number:</label>
-                            <select class="form-control" id="sel1" style="background-color: transparent;border: 0px solid white;color: white;border-bottom-width: 2px;">
-                                <option value="0">Select Line Number</option> 
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                            </select>
+                            <div class="form-group " style="width: 100%;margin-left: 50px;padding: 10px">
+                                <label for="station" style="color: white">Station Number:</label>
+                                <select class="form-control" id="station" name="stationSel" style="background-color: transparent;border: 0px solid white;color: white;border-bottom-width: 2px;">
+                                    <option value="0">Select Station Number</option> 
+                                </select>
+                            </div> 
                         </div>
-
-                        <div class="form-group " style="width: 100%;margin-left: 50px;padding: 10px">
-                            <label for="sel1" style="color: white">Station Number:</label>
-                            <select class="form-control" id="sel1" style="background-color: transparent;border: 0px solid white;color: white;border-bottom-width: 2px;" >
-                                <option value="0">Select Station Number</option> 
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                            </select>
-                        </div> 
+                        <div class="d-flex justify-content-center" style="background-color: #009bcc;border-radius: 20px;width: 90%;margin-top: 10px">
+                            <div class="form-group " style="width: 100%;margin-left: 10px;padding: 10px">
+                                <label for="variant" style="color: white">Variant Number:</label>
+                                <select class="form-control" id="variant" name="varSel" style="background-color: transparent;border: 0px solid white;color: white;border-bottom-width: 2px;">
+                                    <option value="0">Select Line Number</option> 
+                                    <?php
+                                    	while ($row2=$result2->fetch_assoc()) {
+                                     		echo '<option value="'.$row2['variant'].'">'.$row2['variant'].'</option>';
+                                     	}
+                                     	
+                                     ?>
+                                </select>
+                            </div>
+                            <div class="form-group " style="width: 100%;margin-left: 50px;padding: 10px">
+                                <label for="serial" style="color: white">Serial Number:</label>
+                                <select class="form-control" id="serial" name="serialSel" style="background-color: transparent;border: 0px solid white;color: white;border-bottom-width: 2px;">
+                                    <option value="0">Select Line Number</option> 
+                                </select>
+                            </div>
+                        </div>   
                     </div>
-                    <div class="d-flex justify-content-center" style="background-color: #009bcc;border-radius: 20px;width: 90%;margin-top: 10px">
-                        <div class="form-group " style="width: 100%;margin-left: 10px;padding: 10px">
-                            <label for="usr" style="color: white">Variant:</label>
-                            <input type="text" style="background-color: transparent;border: 0px solid white;color: white;border-bottom-width: 2px;" class="form-control" id="usr">
-                        </div>
-                        <div class="form-group " style="width: 100%;margin-left: 50px;padding: 10px">
-                            <label for="usr" style="color: white">Serial Number:</label>
-                            <input type="text"  style="background-color: transparent;border: 0px solid white;color: white;border-bottom-width: 2px;" class="form-control" id="usr">
-                        </div>
-                    </div>   
-                </div>
-                
                     
-                
-            </div>
-            <div class="row">
-                <div class="input-group mb-3 col-sm-12 d-flex justify-content-center" style=";margin-top: 20px;">
-                    <input class="btn btn-danger" type="submit" value="Submit" style="padding: 10px;border-radius: 50px">
+                        
+                    
                 </div>
-            </div>
+                <div class="row">
+                    <div class="input-group mb-3 col-sm-12 d-flex justify-content-center" style=";margin-top: 20px;">
+                        <input class="btn btn-danger" type="submit" value="Submit" style="padding: 10px;border-radius: 50px">
+                    </div>
+                </div>
+            </form>
 
         </div>
     </div>
@@ -115,6 +130,8 @@
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
@@ -124,6 +141,55 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+
+        	$('#line').on('change',function(){
+        		$line=$(this).val();
+        		if ($line) {
+        			$.ajax({
+        				type:'POST',
+        				url:'fetchLineData.php',
+        				data:'line='+$line,
+        				
+        				success:function(html)
+        				{
+        					//console.log($line);
+        					console.log(html);
+        					$('#station').html(html);
+
+        				}
+
+        			});
+        		}
+        		else{
+        			$('#station').html('<option value="">Invalid</option>');
+        		}
+        	})
+
+        	$('#variant').on('change',function(){
+        		$variant=$(this).val();
+        		if ($variant) {
+        			$.ajax({
+        				type:'POST',
+        				url:'fetchVariantData.php',
+        				data:'variant='+$variant,
+        				
+        				success:function(html)
+        				{
+        					//console.log($variant);
+        					console.log(html);
+        					$('#serial').html(html);
+
+        				}
+
+        			});
+        		}
+        		else{
+        			$('#serial').html('<option value="">Invalid</option>');
+        		}
+        	})
+
+
+
             $("#sidebar").mCustomScrollbar({
                 theme: "minimal"
             });
@@ -139,6 +205,10 @@
         function logout() {
             window.location.assign("logout.php");
         }
+
+
+
+
     </script>
 
 </body>
