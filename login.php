@@ -5,6 +5,10 @@
       {
         echo '<script>alert("Email has been verified");</script>';
       }
+      else if($_SESSION['status']==2)
+      {
+        echo '<script>alert("Password has been reset");</script>';
+      }
       unset($_SESSION['status']);
     }
         
@@ -123,7 +127,7 @@
               <div class="col-sm-2"></div>
               <div class="col-sm-8  center" >
                 <div class="input-group mb-3" style="justify-content: center; margin: auto;" >
-                  <a href="checkMail.php" style="color: white;text-align: center;">Forgot Password</a>
+                  <a href="resetEmail.php" style="color: white;text-align: center;">Forgot Password</a>
                 </div>
               </div>
               <div class="col-sm-2"></div>

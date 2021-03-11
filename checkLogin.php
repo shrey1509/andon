@@ -4,7 +4,7 @@
 	$tableName = "employee";
 	$username = $conn->real_escape_string($_POST['username']);
 	$password = $conn->real_escape_string($_POST['password']);
-
+	$_SESSION['username'] = $username;
 	$encryptedPassword = md5($password);
 	
 	$usergroup = $_POST['usergroup'];
@@ -17,14 +17,14 @@
 
 		$_SESSION['userid'] = $row["id"];
 		$_SESSION['usergroup'] = $row["usergroup"];
-		// $_SESSION['username'] = $row["username"];
+		
 
 		if(strcmp($usergroup, "operator") == 0) {
 			header("Location: operator.php");
 		} else if(strcmp($usergroup, "floor manager")==0){
-			header("Location: floormanager.php");
+			header("Location: success.php");
 		} else if(strcmp($usergroup, "admin")==0){
-			header("Location: admin.php");
+			header("Location: success.php");
 		} else {
 			echo "Invalid User Group";
 		}

@@ -37,7 +37,6 @@
 </head>
 <body>
 
-  <!-- Header -->
   <header style="background-color: grey;height: 50px;">
     <section style="background-color: #2596be; height: 30px;"></section>
   </header>
@@ -47,7 +46,7 @@
     <div class="row">
       <div class="col-sm-4"></div>
       <div class="col-sm-4 background shad " style="padding: 0px;">
-        <div class="overlay" style="width: 100%">
+        <div class="overlay" style="width: 100%;height: 100%">
           <div class="row" style="padding: 0px 15px 0px 15px;">
             <div class="col-sm-4" style="background-color: #eee;"></div>
             <div class="col-sm-4 " style="background-color: #eee">
@@ -56,14 +55,16 @@
             </div>
             <div class="col-sm-4" style="background-color: #eee"></div>
           </div>
-          <form action="compareOTP.php" method="POST" id="loginForm">
+          <form action="emailSess.php" method="POST" id="loginForm">
              <div class="row" style="width: 100%;margin-top: 20px">
               <div class="col-sm-1"></div>
               <div class="col-sm-10 center" >
+                <!-- <h3 style="color: white;font-weight: bold;display: block;white-space: nowrap;">Change your password</h3> -->
                 <div class="form-group">
-                  <label for="username" style="color: white;font-weight: bold;">Enter OTP:</label>
-                  <input type="text" id="otp" autocomplete="off" class="form-control round" placeholder="Check your Mail for OTP" name="otp">
-                  <div class="invalid-feedback" style="font-weight: bold;">Check your email for OTP</div>
+
+                  <label for="username" style="color: white;font-weight: bold;">Enter your registered email:</label>
+                  <input type="text" id="username" autocomplete="off" class="form-control round" placeholder="Enter your email address" name="email">
+                  <div class="invalid-feedback" style="font-weight: bold;">Enter your email for reset</div>
                 </div>
               </div>
               <div class="col-sm-1"></div>
@@ -73,17 +74,7 @@
               <div class="col-sm-2"></div>
               <div class="col-sm-8 center" >
                 <div class="input-group mb-3" style="justify-content: center; margin: auto;">
-                  <input class="round btn btn-light" type="button" value="Submit" onclick="alert1();">
-                </div>
-              </div>
-              <div class="col-sm-2"></div>
-            </div>
-
-            <div class="row" >
-              <div class="col-sm-2"></div>
-              <div class="col-sm-8  center" >
-                <div class="input-group mb-3" style="justify-content: center; margin: auto;" >
-                  <a href="#" style="color: white;text-align: center;">Resend OTP</a>
+                  <input class="round btn btn-light" type="button" value="Next" onclick="alert1();">
                 </div>
               </div>
               <div class="col-sm-2"></div>
@@ -107,31 +98,20 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
   <script type="text/javascript">
-    
-    // function validateAndSubmit() {
-    //   var usergroup = document.getElementById('usergroup').value
-    //   var username = document.getElementById('username').value
-    //   var password = document.getElementById('password').value
-    //   var form = document.getElementById('loginForm')
-    //   if(validate(usergroup, username, password) == 1) {
-    //     form.submit();
-    //   }
-    // }
-    let fm= document.getElementById('loginForm');
 
     function alert1()
     {
-      var otp=document.getElementById('otp').value;
-      if(otp==="" && otp.length==0)
+      let fm= document.getElementById('loginForm');
+      var email=document.getElementById('username').value;
+      if(email==="" && email.length==0)
       {
-        $("#otp").addClass("is-invalid");
+        $("#username").addClass("is-invalid");
       }
       else
       {
-        $("#otp").removeClass("is-invalid");
+        $("#username").removeClass("is-invalid");
         fm.submit();
       }
-      
       
     }
 
