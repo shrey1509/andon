@@ -1,18 +1,19 @@
 <?php
 	include 'resources/connect.php';
-	$tableName = "linestation";
+	$tableName = "station";
+	$tableName1 = "line";
 	
 
 	$line=$_POST['line'];
 
 	if(isset($_POST['line']))
 	{
-		$result=$conn->query("SELECT station FROM $tableName WHERE lineno='".$line."'");
+		$result=$conn->query("SELECT * FROM $tableName WHERE `line` IN (SELECT lineno FROM $tableName1 WHERE linename='".$line."' )");
 		echo '<option value="" disabled selected="true">Select Station Number</option>';
 		while ($rowa=$result->fetch_assoc()) {
-			for ($i=1; $i <= $rowa['station'] ; $i++) { 
-				echo '<option >'.$i.'</option>';
-			}
+			
+				echo '<option style="color:black;">'.$rowa['stationname'].'</option>';
+			
 		}
 	}
 	else

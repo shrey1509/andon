@@ -1,8 +1,11 @@
 <?php
-	// //session_start();
+	session_start();
 	use PHPMailer\PHPMailer\PHPMailer;
 	use PHPMailer\PHPMailer\Exception;
 	use PHPMailer\PHPMailer\SMTP;
+	unset ($_SESSION["min"]);
+	unset ($_SESSION["sec"]);
+
 
 	$sc = $_POST['sc'];
 	$m = $_POST['m'];

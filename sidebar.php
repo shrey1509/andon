@@ -1,4 +1,18 @@
 <?php
+if(isset($_SESSION['min'])){
+    $min = $_SESSION['min'];
+}
+else
+{
+    $min=0;
+}
+if(isset($_SESSION['sec'])){
+    $sec = $_SESSION['sec'];
+}
+else
+{
+    $sec=0;
+}
 if($op=="operator")
 {
   ?><nav id="sidebar">
@@ -20,12 +34,17 @@ if($op=="operator")
                 </li>                
                 <li>
                     <div align="center" style="padding-top: 20px">
-                        <a href="operator.php" class="btn btn-danger btn-lg active" role="button" aria-pressed="true" style="background-color: white;color: black;border-radius: 20px;border-color: white;text-align:center;width: 90%" ><i class="fas fa-home"></i> Raise Issue</a>
+                        <a href="operator.php" class="btn btn-danger btn-lg active" role="button" aria-pressed="true" style="background-color: white;color: black;border-radius: 20px;border-color: white;text-align:center;width: 90%" ><i class="fas fa-home"></i> Raise Andon</a>
                     </div>
                 </li>
                 <li>
                     <div align="center" style="padding-top: 20px">
-                        <a href="issueUnresolved.php" class="btn btn-danger btn-lg active" role="button" aria-pressed="true" style="background-color: white;color: black;border-radius: 20px;border-color: white;text-align:center;width: 90%" ><i class="fas fa-user"></i> Notify Staff</a>
+                        <a href="issueUnresolved.php" class="btn btn-danger btn-lg active" role="button" aria-pressed="true" style="background-color: white;color: black;border-radius: 20px;border-color: white;text-align:center;width: 90%" ><i class="fas fa-exclamation"></i> Notify Andon</a>
+                    </div>
+                </li>
+                <li>
+                    <div align="center" style="padding-top: 20px">
+                        <a href="success.php" class="btn btn-danger btn-lg active" role="button" aria-pressed="true" style="background-color: white;color: black;border-radius: 20px;border-color: white;text-align:center;width: 90%" ><i class="fas fa-user"></i> Members</a>
                     </div>
                 </li>
                 
@@ -34,11 +53,11 @@ if($op=="operator")
                         <label for="t1" style="text-align: left;color: black">Time Taken:</label>
                         <div class="clock"  style="background-color: white;border-radius: 20px;width: 90%">
                             <h4 style="color: black">
-                                <span id="hour">00</span>
+                                <span id="hour">0</span>
                                 <span >:</span>
-                                <span id="minute">00</span>
+                                <span id="minute"><?php echo $min;?></span>
                                 <span >:</span>
-                                <span id="seconds">00</span>
+                                <span id="seconds"><?php echo $sec;?></span>
                             </h4>
                             <h1 id="timetaken">
                              </h1>
