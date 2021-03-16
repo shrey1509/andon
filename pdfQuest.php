@@ -58,34 +58,22 @@
                 include 'header.php';
             ?>
          
+            
+
             <div class="row">
-                <div class="col-sm-12">
-                    <div class="maintxt" style="height: 200px;">
-                        <h4 class="centered" style="text-align: center;color: white;width: 100%;padding: 0px;font-weight: bold">Andon Management System</h4>
-                    </div>
+                <div class="col-sm-4" style="background-color: #009bcc;">
+                    <h5 style="color: white;margin-left: 50px">   Line: <?php echo $line;?>   </h5>
+                </div>
+                <div class="col-sm-4" style="background-color: #009bcc;">
+                    <h5 style="color: white;margin-left: 50px">      Station: <?php echo $station;?></h5>
+                </div>
+                <div class="col-sm-4" style="background-color: #009bcc;">
+                    <h5 style="color: white;margin-left: 50px">      Variant: <?php echo $variant." #".$serial;?></h5>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-sm-4" style="background-color: #009bcc;height: 50px">
-                    <h5 style="padding: 10px;color: white;margin-left: 50px">   Line: <?php echo $line;?>   </h5>
-                </div>
-                <div class="col-sm-4" style="background-color: #009bcc;height: 50px">
-                    <h5 style="padding: 10px;color: white;margin-left: 50px">      Station: <?php echo $station;?></h5>
-                </div>
-                <div class="col-sm-4" style="background-color: #009bcc;height: 50px">
-                    <h5 style="padding: 10px;color: white;margin-left: 50px">      Variant: <?php echo $variant." #".$serial;?></h5>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-12" style="background-color: #009bcc;height: 50px;margin-bottom: 100px">
-                    <embed style="border: solid black 20px;" src=
-                    "<?php 
-                        while ($row2=$result2->fetch_assoc()) {
-                                        echo $row2['pdfpath'];
-                                    }
-                    ?>" width="100%" height="1000px" />
+                <div class="col-sm-12" style="height: 50px;margin-bottom: 100px">
 
                     <div id="ra1" style="margin-bottom: 50px;margin-left: 50px;margin-top: 50px">
                         <h2 id="thanks">Thanks For Answering!</h2>
@@ -119,11 +107,19 @@
                             
                     </div>
 
+                    <embed style="border: solid black 20px;" src=
+                    "<?php 
+                        while ($row2=$result2->fetch_assoc()) {
+                                        echo $row2['pdfpath'];
+                                    }
+                    ?>" width="100%" height="1000px" />
+
 
                     
                     <div class="input-group mb-3 col-sm-12 d-flex justify-content-center" style=";margin-top: 20px;margin-bottom: 500px">
-                    <a href="issueUnresolved.php" id="Displaytimetaken" class="btn btn-danger btn-lg active" role="button" type="submit" aria-pressed="true" style="border-radius: 20px;margin: 5px">Issue Unresolved</a>
+                    <a href="issueUnresolved.php" id="TimeTaken" class="btn btn-danger btn-lg active" role="button" type="button" aria-pressed="true" onclick="getTime();" style="border-radius: 20px;margin: 5px">Issue Unresolved</a>
                     <a href="operator.php" id="Displaytimetaken" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" type="submit" style="border-radius: 20px;margin: 5px">Issue Resolved</a>
+                    
                     </div> 
 
                     <div style="height: 100px">
@@ -204,19 +200,50 @@
 
           
 
-          document.getElementById('Displplaytimetaken').addEventListener('click', () => {
-            document.getElementById("timetaken").innerHTML = minute + "minutes" + seconds + "seconds";
-            reset();
-          });
+          // document.getElementById('TimeTaken').addEventListener('click', () => {
+          //   $.ajax({
+          //               type:'POST',
+          //               url:'issueUnresolved.php',
+          //               data:'min='+minute+'sec'+seconds,
 
-          function reset() {
-            totalSeconds = 0;
-            document.getElementById("hour").innerHTML = '0';
-            document.getElementById("minute").innerHTML = '0';
-            document.getElementById("seconds").innerHTML = '0';
-          }
+          //           });
+          //   //reset();
+          // });
+          // function getTime()
+          // {
+          //   $min= $('#minute').val();
+          //   $sec= $('#seconds').val();
+          //   alert($min);
+          //   alert($sec);
+
+          //   $.ajax({
+          //               type:'POST',
+          //               url:'issueUnresolved.php',
+          //               data:'min='+$min+'sec='+$sec,
+
+          //           });
+          // }
+
+          // function reset() {
+          //   totalSeconds = 0;
+          //   document.getElementById("hour").innerHTML = '0';
+          //   document.getElementById("minute").innerHTML = '0';
+          //   document.getElementById("seconds").innerHTML = '0';
+          // }
 
         }
+        function getTime()
+          {
+            var min= document.getElementById("minute").innerHTML;
+            var sec= document.getElementById("seconds").innerHTML;
+            $.ajax({
+                        type:'POST',
+                        url:'setTime.php',
+                        data: {min : document.getElementById('minute').innerHTML,
+                            sec : document.getElementById('seconds').innerHTML,} ,
+
+                    });
+          }
 
 
         $(document).ready(function () {

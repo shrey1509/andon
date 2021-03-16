@@ -3,35 +3,18 @@
     if(isset($_SESSION['userid'])) {
         include 'resources/connect.php';
         $tableName = "employee";
-        $tableName1 = "line";
-        // $tableName2 = "variant";
+        $tableName1 = "station";
+        $tableName2 = "variant";
         $id = $_SESSION['userid'];
         $op = $_SESSION['usergroup'];
+        $station = $_SESSION['station'];
         $sql = "SELECT * FROM $tableName WHERE id = $id";
         $result = $conn->query($sql);
         $row = $result->fetch_assoc();
-        $sql1 = "SELECT * FROM $tableName1";
-        $result1 = $conn->query($sql1);
-        if(isset($_SESSION['min'])){
-            unset($_SESSION['min']);
-        }
-        if(isset($_SESSION['sec'])){
-            unset($_SESSION['sec']);
-        }
-        if(isset($_SESSION['line'])){
-            unset($_SESSION['line']);
-        }
-        if(isset($_SESSION['station'])){
-            unset($_SESSION['station']);
-        }
-        if(isset($_SESSION['variant'])){
-            unset($_SESSION['variant']);
-        }
-        if(isset($_SESSION['serial'])){
-            unset($_SESSION['serial']);
-        }
-        // $sql2 = "SELECT DISTINCT variant FROM $tableName2";
-        // $result2 = $conn->query($sql2);
+        // $sql1 = "SELECT * FROM $tableName1";
+        // $result1 = $conn->query($sql1);
+        $sql2 = "SELECT * FROM $tableName2 WHERE variantno IN (SELECT variant FROM $tableName1 WHERE stationname ='$station') ";
+        $result2 = $conn->query($sql2);
 ?>
 
 <!DOCTYPE html>
@@ -82,32 +65,32 @@
                 </div>
             </div>
             
-            <form action="setOperator.php" method="POST" id="opForm">
+            <form action="setVariant.php" method="POST" id="opForm">
                 <div class="row" style="margin-top: 20px">
 
                     <div class="col-sm-12" style="margin-left: 60px">
-                        <div class="d-flex justify-content-center" style="background-color: #009bcc;border-radius: 20px;width: 90%">
-
+                         <div class="d-flex justify-content-center" style="background-color: #009bcc;border-radius: 20px;width: 90%;margin-top: 10px">
                             <div class="form-group " style="width: 100%;margin-left: 10px;padding: 10px">
-                                <label for="line" style="color: white">Select Line:</label>
-                                <select class="form-control" id="line" name="lineSel" style="background-color: transparent;border: 0px solid white;color: white;border-bottom-width: 2px;">
-                                    <option value="" disabled selected="true">Select Line</option> 
+                                <label for="line" style="color: white">Select Variant:</label>
+                                <select class="form-control" id="variant" name="varSel" style="background-color: transparent;border: 0px solid white;color: white;border-bottom-width: 2px;">
+                                    <option value="" disabled selected="true">Select Variant</option> 
                                     <?php
-                                     	while ($row1=$result1->fetch_assoc()) {
-                                     		echo '<option style="color:black;">'.$row1['linename'].'</option>';
-                                     	}
+                                        while ($row1=$result2->fetch_assoc()) {
+                                            echo '<option style="color:black;">'.$row1['variantname'].'</option>';
+                                        }
                                      ?>
                                 </select>
-                                <div class="invalid-feedback" style="font-weight: bold;">Enter Line.</div>
+                                <div class="invalid-feedback" style="font-weight: bold;">Enter Variant.</div>
                             </div>
 
                             <div class="form-group " style="width: 100%;margin-left: 50px;padding: 10px">
-                                <label for="station" style="color: white">Select Station:</label>
-                                <select class="form-control" id="station" name="stationSel" style="background-color: transparent;border: 0px solid white;color: white;border-bottom-width: 2px;">
-                                    <option value="" disabled selected="true">Select Station</option> 
+                                <label for="station" style="color: white">Select Serial:</label>
+                                <select class="form-control" id="serial" name="serialSel" style="background-color: transparent;border: 0px solid white;color: white;border-bottom-width: 2px;">
+                                    <option value="" disabled selected="true">Select Serial</option> 
                                 </select>
-                                <div class="invalid-feedback" style="font-weight: bold;">Enter Station.</div>
+                                <div class="invalid-feedback" style="font-weight: bold;">Enter Serial.</div>
                             </div> 
+                          
                         </div>
                           
                     </div>
@@ -117,7 +100,7 @@
                 </div>
                 <div class="row">
                     <div class="input-group mb-3 col-sm-12 d-flex justify-content-center" style=";margin-top: 20px;">
-                        <input class="btn btn-danger" onclick="validateAndSubmit();" type="button" value="Select Variant" style="padding: 10px;border-radius: 50px">
+                        <input class="btn btn-danger" onclick="validateAndSubmit();" type="button" value="Raise Andon" style="padding: 10px;border-radius: 50px">
                     </div>
                 </div>
             </form>
@@ -143,28 +126,6 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-        	$('#line').on('change',function(){
-        		$line=$(this).val();
-        		if ($line) {
-        			$.ajax({
-        				type:'POST',
-        				url:'fetchLineData.php',
-        				data:'line='+$line,
-        				
-        				success:function(html)
-        				{
-        					//console.log($line);
-        					console.log(html);
-        					$('#station').html(html);
-
-        				}
-
-        			});
-        		}
-        		else{
-        			$('#station').html('<option value="">Invalid</option>');
-        		}
-        	})
 
         	$('#variant').on('change',function(){
         		$variant=$(this).val();
@@ -206,56 +167,37 @@
         function logout() {
             window.location.assign("logout.php");}
 
-        function validate(line1, station1) {
+        function validate(variant1, serial1) {
           var flag = 1;
 
-          if(line1 === "" && line1.length == 0) {
+          if(variant1 === "" && variant1.length == 0) {
             flag = 0;
-            $("#line").addClass("is-invalid");
+            $("#variant").addClass("is-invalid");
             return flag;
           } else {
             flag = 1;
-            $("#line").removeClass("is-invalid");
+            $("#variant").removeClass("is-invalid");
           }
 
-          if(station1 === "" && station1.length == 0) {
+          if(serial1 === "" && serial1.length == 0) {
             flag = 0;
-            $("#station").addClass("is-invalid");
+            $("#serial").addClass("is-invalid");
             return flag;
           } else {
             flag = 1;
-            $("#station").removeClass("is-invalid");
+            $("#serial").removeClass("is-invalid");
           }
-
-          // if(variant1 === "" && variant1.length == 0) {
-          //   flag = 0;
-          //   $("#variant").addClass("is-invalid");
-          //   return flag;
-          // } else {
-          //   flag = 1;
-          //   $("#variant").removeClass("is-invalid");
-          // }
-
-          // if(serial1 === "" && serial1.length == 0) {
-          //   flag = 0;
-          //   $("#serial").addClass("is-invalid");
-          //   return flag;
-          // } else {
-          //   flag = 1;
-          //   $("#serial").removeClass("is-invalid");
-          // }
             console.log(flag);
           return flag;
 
         }
 
         function validateAndSubmit() {
-          var line1 = document.getElementById('line').value
-          var station1 = document.getElementById('station').value
-          // var variant1 = document.getElementById('variant').value
-          // var serial1 = document.getElementById('serial').value
+          
+          var variant1 = document.getElementById('variant').value
+          var serial1 = document.getElementById('serial').value
           var form = document.getElementById('opForm')
-          if(validate(line1, station1) == 1) {
+          if(validate( variant1, serial1) == 1) {
             form.submit();
           }
         }

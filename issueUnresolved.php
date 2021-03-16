@@ -13,6 +13,12 @@
         $sql = "SELECT * FROM $tableName WHERE id = $id";
         $result = $conn->query($sql);
         $row = $result->fetch_assoc();
+        $min = $_SESSION['min'];
+        $sec = $_SESSION['sec'];
+            
+        
+        
+        
         // $sql2 = "SELECT DISTINCT variant FROM $tableName2";
         // $result2 = $conn->query($sql2);
         // $sql3 = "SELECT DISTINCT variant FROM $tableName2";
@@ -167,7 +173,7 @@
                 </div>
                 <div class="row">
                     <div class="input-group mb-3 col-sm-12 d-flex justify-content-center" style=";margin-top: 75px;">
-                        <input class="btn btn-danger" type="button" onclick="validateAndSubmit();" value="Notify Staff" style="padding: 10px;border-radius: 50px">
+                        <input class="btn btn-danger" type="button" onclick="validateAndSubmit();" value="Notify Andon" style="padding: 10px;border-radius: 50px">
                     </div>
                 </div>
             </form>
@@ -246,6 +252,43 @@
 
             form.submit();
           }
+        }
+
+        window.onload = () => {
+          let hour = document.getElementById("hour").innerHTML;
+          let minute = document.getElementById("minute").innerHTML;
+          let seconds = document.getElementById("seconds").innerHTML;
+          let totalSeconds = document.getElementById("seconds").innerHTML;;
+          let intervalId = null;
+
+          document.getElementById("clk").style.display = 'block';
+
+        intervalId = setInterval(startTimer, 1000);
+          function startTimer() {
+            ++totalSeconds;
+            hour = Math.floor(totalSeconds / 3600);
+            minute = Math.floor((totalSeconds - hour * 3600) / 60);
+            seconds = totalSeconds - (hour * 3600 + minute * 60);
+
+            document.getElementById("hour").innerHTML = hour;
+            document.getElementById("minute").innerHTML = minute;
+            document.getElementById("seconds").innerHTML = seconds;
+          }
+
+          
+
+          // document.getElementById('Displaytimetaken').addEventListener('click', () => {
+          //   document.getElementById("timetaken").innerHTML = minute + "minutes" + seconds + "seconds";
+          //   reset();
+          // });
+
+          // function reset() {
+          //   totalSeconds = 0;
+          //   document.getElementById("hour").innerHTML = '0';
+          //   document.getElementById("minute").innerHTML = '0';
+          //   document.getElementById("seconds").innerHTML = '0';
+          // }
+
         }
 
 
