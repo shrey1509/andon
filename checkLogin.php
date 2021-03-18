@@ -24,7 +24,7 @@
 		} else if(strcmp($usergroup, "floor manager")==0){
 			header("Location: success.php");
 		} else if(strcmp($usergroup, "admin")==0){
-			header("Location: success.php");
+			header("Location: admin/users/users.php");
 		} else {
 			echo "Invalid User Group";
 		}
