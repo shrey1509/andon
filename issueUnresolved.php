@@ -6,18 +6,26 @@
         $tableName2 = "variant";
         $id = $_SESSION['userid'];
         $op = $_SESSION['usergroup'];
-        $line = $_SESSION['line'];
-        $station = $_SESSION['station'];
-        $variant = $_SESSION['variant'];
-        $serial = $_SESSION['serial'];
+        
         $sql = "SELECT * FROM $tableName WHERE id = $id";
         $result = $conn->query($sql);
         $row = $result->fetch_assoc();
-        $min = $_SESSION['min'];
-        $sec = $_SESSION['sec'];
-            
-        
-        
+
+        if(isset($_SESSION['min']) && isset($_SESSION['sec'])){
+            $station = $_SESSION['station'];
+            $line = $_SESSION['line'];
+            $variant = $_SESSION['variant'];
+            $serial = $_SESSION['serial'];
+            $min = $_SESSION['min'];
+            $sec = $_SESSION['sec'];
+        } else {
+            $line = "-";
+            $station = "-";
+            $variant = "-";
+            $serial = "-";
+            $min = "-";
+            $sec = "-";
+        }
         
         // $sql2 = "SELECT DISTINCT variant FROM $tableName2";
         // $result2 = $conn->query($sql2);
@@ -86,7 +94,6 @@
                     <h5 style="padding: 10px;color: white;margin-left: 50px">      Variant: <?php echo $variant." #".$serial;?></h5>
                 </div>
             </div>
-
             <form action="notifyStaff.php" method="POST" id="opForm">
                 <div class="row" style="margin-top: 50px;margin-left: 50px">
                     <div class="col-sm-4" style="height: 50px">
@@ -178,7 +185,7 @@
                 </div>
             </form>
 
-            
+             
 
             
          

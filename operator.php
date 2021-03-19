@@ -173,7 +173,6 @@
         				type:'POST',
         				url:'fetchVariantData.php',
         				data:'variant='+$variant,
-        				
         				success:function(html)
         				{
         					//console.log($variant);
@@ -187,7 +186,7 @@
         		else{
         			$('#serial').html('<option value="">Invalid</option>');
         		}
-        	})
+        	});
 
 
 

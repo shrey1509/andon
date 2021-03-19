@@ -4,7 +4,7 @@
         include 'resources/connect.php';
         $tableName = "employee";
         $tableName1 = "variant";
-        $tableName2 = "questions";
+        $tableName2 = "question";
         $id = $_SESSION['userid'];
         $op = $_SESSION['usergroup'];
         $line = $_SESSION['line'];
@@ -14,11 +14,14 @@
         $sql = "SELECT * FROM $tableName WHERE id = $id";
         $result = $conn->query($sql);
         $row = $result->fetch_assoc();
-        $sql1 = "SELECT quest FROM $tableName1 WHERE `serial` = '$serial'";
+        $sql1 = "SELECT variantno FROM $tableName1 WHERE `serial` = '$serial'";
         $result1 = $conn->query($sql1);
+        $variantrow = $result1->fetch_assoc();
+        $variantNumber = $variantrow['variantno'];
         $sql2 = "SELECT pdfpath FROM $tableName1 WHERE `serial` = '$serial'";
         $result2 = $conn->query($sql2);
-        $sql3 = "SELECT * FROM $tableName2 WHERE id IN (SELECT questid from $tableName1 WHERE `serial` = '$serial')";
+        $sql3 = "SELECT * FROM `$tableName2` WHERE `variantno` = '$variantNumber'";
+        // $sql3 = "SELECT * FROM $tableName2 WHERE id IN (SELECT questid from $tableName1 WHERE `serial` = '$serial')";
         $result3 = $conn->query($sql3);
 
 
@@ -78,30 +81,29 @@
                     <div id="ra1" style="margin-bottom: 50px;margin-left: 50px;margin-top: 50px">
                         <h2 id="thanks">Thanks For Answering!</h2>
                     <?php
+                        $countOfQuestions = $result3->num_rows;
+                        $i = 0;
                         while ($row3=$result3->fetch_assoc()) {
-                                        $questions=explode(";", $row3['questions']);
-                                        $answersOver=explode(".", $row3['answers']);
-                                        echo '<input id="inp" type="hidden" value="'.count($questions).'">';
-                                        for ($i=0; $i <count($questions) ; $i++) { 
-                                            ?>
-                                            <div id="<?php echo 'rad'.$i; ?>">
-                                            <?php 
+                            // $questions=explode(";", $row3['questions']);
+                            // $answersOver=explode(".", $row3['answers']);
+                            echo '<input id="inp" type="hidden" value="'.$countOfQuestions.'">';
+                            // for ($i=0; $i<$countOfQuestions ; $i++) { 
+                                ?>
+                                <div id="<?php echo 'rad'.$i; ?>">
+                                <?php 
 
-                                            echo "<h3>".$questions[$i]."</h3>";   
-                                            $answers=explode(";", $answersOver[$i]);
-                                            for ($k=0; $k <count($answers) ; $k++) { 
-                                                    
-                                                echo '<label><input type="radio" onclick="getquest('.$i.');" name="ans'.$i.'" required="required"> '.$answers[$k].'   </label>';
-                                                echo "  ";
-                                            }
-                                                
-                                           echo '</div>';
-                                        }
+                                echo "<h3>".$row3['questionname']."</h3>";   
+                                $answers=explode(";", $row3['answer']);
+                                for ($k=0; $k <count($answers) ; $k++) { 
                                         
-                                        
-                                        
-
-                                    }
+                                    echo '<label><input type="radio" onclick="getquest('.$i.');" name="ans'.$i.'" required="required"> '.$answers[$k].'   </label>';
+                                    echo "  ";
+                                }
+                                    
+                               echo '</div>';
+                            // }
+                               $i++;
+                        }
 
                         ?>
                             
@@ -158,9 +160,13 @@
         for (var i =1; i < size; i++) {
             $("#rad"+i).hide();
         }
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
 
-        function getquest(i)
+        async function getquest(i)
         {
+            await sleep(1000);
             if((size-1)>i)
             {
                 $("#rad"+i).hide();
