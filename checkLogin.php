@@ -22,7 +22,7 @@
 		if(strcmp($usergroup, "operator") == 0) {
 			header("Location: operator.php");
 		} else if(strcmp($usergroup, "floor manager")==0){
-			header("Location: success.php");
+			header("Location: floorManager/floorManager.php");
 		} else if(strcmp($usergroup, "admin")==0){
 			header("Location: admin/users/users.php");
 		} else {
