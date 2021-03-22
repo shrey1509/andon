@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../../style2.css">
+    <link rel="stylesheet" href="../../css/style2.css">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
@@ -54,20 +54,20 @@
     <div class="wrapper">
         <!-- Sidebar  -->
         <?php
-            include '../../sidebar.php';
+            include '../../includables/sidebar.php';
         ?>
         <!-- Page Content  -->
         <div id="content">
             <?php
-                include '../../header.php';
+                include '../../includables/header.php';
             ?>
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-sm-12">
                     <div class="maintxt" style="height: 200px;">
                         <h4 class="centered" style="text-align: center;color: white;width: 100%;padding: 0px;font-weight: bold">Andon Management System</h4>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <div class="row" style="justify-content: center;align-content: center; margin-top: 10px;">
                 <h2>Add/Delete/Edit Station</h2>
@@ -281,7 +281,7 @@
         $('#logoutButton').on('click', logout);
 
         function logout() {
-            window.location.assign("logout.php");
+            window.location.assign("../../login/logout.php");
         }
     </script>
 
@@ -291,6 +291,6 @@
 
 <?php
     } else {
-        header("Location: login.php");
+        header("Location: ../index.php");
     }
 ?>

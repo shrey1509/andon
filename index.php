@@ -1,3 +1,18 @@
+<?php
+    session_start();
+    if(isset($_SESSION['status'])) {
+      if($_SESSION['status']==1)
+      {
+        echo '<script>alert("Email has been verified");</script>';
+      }
+      else if($_SESSION['status']==2)
+      {
+        echo '<script>alert("Password has been reset");</script>';
+      }
+      unset($_SESSION['status']);
+    }
+        
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,7 +62,7 @@
     <div class="row">
       <div class="col-sm-4"></div>
       <div class="col-sm-4 background shad " style="padding: 0px;">
-        <div class="overlay" style="width: 100%">
+        <div class="overlay" style="width: 100%;height: 100%">
           <div class="row" style="padding: 0px 15px 0px 15px;">
             <div class="col-sm-4" style="background-color: #eee;"></div>
             <div class="col-sm-4 " style="background-color: #eee">
@@ -56,7 +71,7 @@
             </div>
             <div class="col-sm-4" style="background-color: #eee"></div>
           </div>
-          <form action="signUp.php" method="POST" id="loginForm">
+          <form action="login/checkLogin.php" method="POST" id="loginForm">
             <div class="row" style="margin-top: 20px;width:100%">
               <div class="col-sm-1"></div>
               <div class="col-sm-10 center">
@@ -78,21 +93,9 @@
               <div class="col-sm-1"></div>
               <div class="col-sm-10 center" >
                 <div class="form-group">
-                  <label for="name" style="color: white;font-weight: bold;">Name:</label>
-                  <input type="text" id="name" autocomplete="off" class="form-control round" placeholder="Please Enter your name" name="name">
-                  <div class="invalid-feedback" style="font-weight: bold;">Please Enter your name</div>
-                </div>
-              </div>
-              <div class="col-sm-1"></div>
-            </div>
-
-            <div class="row" style="width: 100%">
-              <div class="col-sm-1"></div>
-              <div class="col-sm-10 center" >
-                <div class="form-group">
-                  <label for="designation" style="color: white;font-weight: bold;">Designation:</label>
-                  <input type="text" id="designation" autocomplete="off" class="form-control round" placeholder="Please Enter your Designation" name="designation">
-                  <div class="invalid-feedback" style="font-weight: bold;">Enter your Designation.</div>
+                  <label for="username" style="color: white;font-weight: bold;">Username:</label>
+                  <input type="text" id="username" autocomplete="off" class="form-control round" placeholder="Username" name="username">
+                  <div class="invalid-feedback" style="font-weight: bold;">Enter username to Log in.</div>
                 </div>
               </div>
               <div class="col-sm-1"></div>
@@ -103,7 +106,7 @@
               <div class="col-sm-10 col-md-10 center " >
                 <div class="form-group">
                   <label for="password" style="color: white;font-weight: bold;">Password:</label>
-                  <input type="password" id="password" autocomplete="off" class="form-control round" placeholder="Please Enter your Password" name="password">
+                  <input type="password" id="password" autocomplete="off" class="form-control round" placeholder="Password" name="password">
                   <div class="invalid-feedback" style="font-weight: bold;">Enter password to Log in.</div>
                 </div>
               </div>
@@ -114,12 +117,31 @@
               <div class="col-sm-2"></div>
               <div class="col-sm-8 center" >
                 <div class="input-group mb-3" style="justify-content: center; margin: auto;">
-                  <input class="round btn btn-light" type="button" value="Create Account" onclick="validateAndSubmit();">
+                  <input class="round btn btn-light" type="button" value="Sign In" onclick="validateAndSubmit();">
                 </div>
               </div>
               <div class="col-sm-2"></div>
             </div>
 
+            <div class="row" >
+              <div class="col-sm-2"></div>
+              <div class="col-sm-8  center" >
+                <div class="input-group mb-3" style="justify-content: center; margin: auto;" >
+                  <a href="login/resetEmail.php" style="color: white;text-align: center;">Forgot Password</a>
+                </div>
+              </div>
+              <div class="col-sm-2"></div>
+            </div>
+
+            <div class="row" >
+              <div class="col-sm-2"></div>
+              <div class="col-sm-8 center" >
+                <div class="input-group mb-3" style="justify-content: center; margin: auto;">
+                  <a href="login/checkMail.php" style="color: white;text-align: center;">Sign Up</a>
+                </div>
+              </div>
+              <div class="col-sm-2"></div>
+            </div>
           </form>
         </div>
       </div>
@@ -138,18 +160,10 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
   <script type="text/javascript">
+    
 
-    function validate(name, usergroup, username, designation, password) {
+    function validate(usergroup, username, password) {
       var flag = 1;
-
-      if(name === "" && name.length == 0) {
-        flag = 0;
-        $("#name").addClass("is-invalid");
-        return flag;
-      } else {
-        flag = 1;
-        $("#name").removeClass("is-invalid");
-      }
 
       if(usergroup === "" && usergroup.length == 0) {
         flag = 0;
@@ -169,15 +183,6 @@
         $("#username").removeClass("is-invalid");
       }
 
-      if(designation === "" && designation.length == 0) {
-        flag = 0;
-        $("#designation").addClass("is-invalid");
-        return flag;
-      } else {
-        flag = 1;
-        $("#designation").removeClass("is-invalid");
-      }
-
       if(password === "" && password.length == 0) {
         flag = 0;
         $("#password").addClass("is-invalid");
@@ -190,12 +195,11 @@
     }
     
     function validateAndSubmit() {
-      let name = document.getElementById('name').value;
-      let usergroup = document.getElementById('usergroup').value;
-      let designation = document.getElementById('designation').value;
-      let password = document.getElementById('password').value;
-      let form = document.getElementById('loginForm');
-      if(validate(name, usergroup, designation, password) == 1) {
+      var usergroup = document.getElementById('usergroup').value
+      var username = document.getElementById('username').value
+      var password = document.getElementById('password').value
+      var form = document.getElementById('loginForm')
+      if(validate(usergroup, username, password) == 1) {
         form.submit();
       }
     }

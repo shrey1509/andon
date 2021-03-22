@@ -1,7 +1,7 @@
 <?php
     session_start();
     if(isset($_SESSION['userid'])) {
-        include 'resources/connect.php';
+        include '../resources/connect.php';
         $tableName = "employee";
         $tableName1 = "variant";
         $tableName2 = "question";
@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="../css/style2.css">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
@@ -53,12 +53,12 @@
     <div class="wrapper">
         <!-- Sidebar  -->
         <?php
-            include 'sidebar.php';
+            include '../includables/sidebar.php';
         ?>
         <!-- Page Content  -->
         <div id="content">
             <?php
-                include 'header.php';
+                include '../includables/header.php';
             ?>
          
             
@@ -112,7 +112,7 @@
                     <embed style="border: solid black 20px;" src=
                     "<?php 
                         while ($row2=$result2->fetch_assoc()) {
-                                        echo $row2['pdfpath'];
+                                    echo str_replace("%", "/",$row2['pdfpath']);     
                                     }
                     ?>" width="100%" height="1000px" />
 
@@ -271,7 +271,7 @@
         $('#logoutButton').on('click', logout);
 
         function logout() {
-            window.location.assign("logout.php");
+            window.location.assign("../login/logout.php");
         }
 
         
@@ -292,6 +292,6 @@
 
 <?php
     } else {
-        header("Location: login.php");
+        header("Location: ../index.php");
     }
 ?>

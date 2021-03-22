@@ -39,7 +39,7 @@ a:focus {
     border: none;
 }
 .maintxt {
-            background-image: url(machine.jpg);
+            background-image: url('machine.jpg');
             background-size: cover;
         }
 .round {

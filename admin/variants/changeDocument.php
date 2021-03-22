@@ -11,7 +11,8 @@
 	$row = $result->fetch_assoc();
 	$serial = $row['serial'];
 	$variant = $row['variantname'];
-	$path = $row['pdfpath'];
+
+	$path = "../../".$row['pdfpath'];
 
 	$serverPath = str_replace("%", "/", $path);
 	unlink($serverPath);
@@ -21,7 +22,7 @@
 	$documentName = $serial.$variant.'.'.$ext;
 	$uploadDestinationPath = '..\..\pdfs\\'.$documentName;
 	move_uploaded_file($_FILES['fileToUploadChange']['tmp_name'], $uploadDestinationPath);
-	$databaseDestinationPath = '..%..%pdfs%'.$documentName;
+	$databaseDestinationPath = '..%pdfs%'.$documentName;
 
 	$sql = "UPDATE `$tableName` SET `pdfpath` = '$databaseDestinationPath' WHERE variantno = '$variantno'";
 

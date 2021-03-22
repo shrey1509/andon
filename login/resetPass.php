@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	include 'resources/connect.php';
+	include '../resources/connect.php';
 	$tableName = "employee";
 	$username = $_SESSION['email'];
   unset($_SESSION['email']);
@@ -17,7 +17,7 @@
     if ($conn->query($sql) === TRUE) {
         echo "New pass set successfully";
         $_SESSION['status']=2;
-        header("Location: login.php");
+        header("Location: ../index.php");
       } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
         echo "mail:".$username;

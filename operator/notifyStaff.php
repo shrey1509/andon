@@ -3,8 +3,8 @@
 	use PHPMailer\PHPMailer\PHPMailer;
 	use PHPMailer\PHPMailer\Exception;
 	use PHPMailer\PHPMailer\SMTP;
-	unset ($_SESSION["min"]);
-	unset ($_SESSION["sec"]);
+	//unset ($_SESSION["min"]);
+	//unset ($_SESSION["sec"]);
 
 
 	$sc = $_POST['sc'];
@@ -58,7 +58,7 @@
 	
 	// echo implode(" ",$email); 
 
-	require_once "vendor/autoload.php";
+	require_once "../vendor/autoload.php";
 
 	$mail = new PHPMailer(true);
 
@@ -79,11 +79,14 @@
 	$mail->Port = 587;                                   
 
 	$mail->From = "";//from email
-	$mail->FromName = "";
+	$mail->FromName = "name";
 
 	while (list ($key, $val) = each ($email)) {
 		$mail->AddAddress($val);
 	}
+	// foreach ($email as $key=>$val){
+	// 	$mail->AddAddress($val);
+	// }
 
 
 	$mail->isHTML(true);
