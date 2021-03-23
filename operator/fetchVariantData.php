@@ -1,5 +1,5 @@
 <?php
-	include 'resources/connect.php';
+	include '../resources/connect.php';
 	$tableName = "variant";
 	$variant=$_POST['variant'];
 

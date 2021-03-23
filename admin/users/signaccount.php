@@ -1,6 +1,6 @@
 <?php
 
-	include 'resources/connect.php';
+	include '../../resources/connect.php';
 	$tableName = "employee";
 
 	$name = $_POST["name"];
@@ -15,7 +15,7 @@
 	$sql = "INSERT INTO $tableName (`id`, `name`, `designation`, `email`, `password`, `usergroup`) VALUES (NULL, '$name', '$designation', '$email', '$password', '$usergroup')";
 
 	if ($conn->query($sql) === TRUE) {
-	  header("Location: admin.php");
+	  header("Location: users.php");
 	}
 
 	$conn->close();

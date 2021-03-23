@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	include 'resources/connect.php';
+	include '../resources/connect.php';
 	$tableName = "employee";
 	$email = $_POST['email'];
 	$sql="SELECT * FROM `$tableName` where email='$email'";

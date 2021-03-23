@@ -12,13 +12,17 @@
 	$path = $row['pdfpath'];
 
 	$serverPath = str_replace("%", "/", $path);
-	// echo $serverPath;
-	unlink($serverPath);
+	
 
 	$sql = "DELETE FROM `$tableName` WHERE variantno = '$variant'";
 
 	if ($conn->query($sql) === TRUE) {
+		unlink($serverPath);
 	  header("Location: variant.php");
+	}
+	else
+	{
+		echo $conn->error;
 	}
 
 	$conn->close();

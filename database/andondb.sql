@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Mar 18, 2021 at 06:49 PM
--- Server version: 5.7.21
--- PHP Version: 5.6.35
+-- Host: 127.0.0.1
+-- Generation Time: Mar 19, 2021 at 07:55 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -28,16 +27,14 @@ SET time_zone = "+00:00";
 -- Table structure for table `employee`
 --
 
-DROP TABLE IF EXISTS `employee`;
-CREATE TABLE IF NOT EXISTS `employee` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `employee` (
+  `id` int(11) NOT NULL,
   `name` varchar(250) NOT NULL,
   `designation` varchar(250) NOT NULL,
   `email` varchar(250) NOT NULL,
   `password` varchar(250) NOT NULL,
-  `usergroup` varchar(250) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+  `usergroup` varchar(250) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `employee`
@@ -54,12 +51,10 @@ INSERT INTO `employee` (`id`, `name`, `designation`, `email`, `password`, `userg
 -- Table structure for table `line`
 --
 
-DROP TABLE IF EXISTS `line`;
-CREATE TABLE IF NOT EXISTS `line` (
-  `lineno` int(11) NOT NULL AUTO_INCREMENT,
-  `linename` varchar(250) NOT NULL,
-  PRIMARY KEY (`lineno`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `line` (
+  `lineno` int(11) NOT NULL,
+  `linename` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `line`
@@ -76,15 +71,12 @@ INSERT INTO `line` (`lineno`, `linename`) VALUES
 -- Table structure for table `question`
 --
 
-DROP TABLE IF EXISTS `question`;
-CREATE TABLE IF NOT EXISTS `question` (
-  `questionno` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `question` (
+  `questionno` int(11) NOT NULL,
   `questionname` text NOT NULL,
   `answer` varchar(250) NOT NULL DEFAULT 'Yes; No; Skip',
-  `variantno` int(11) NOT NULL,
-  PRIMARY KEY (`questionno`),
-  KEY `variantno` (`variantno`)
-) ENGINE=MyISAM AUTO_INCREMENT=65 DEFAULT CHARSET=latin1;
+  `variantno` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `question`
@@ -155,51 +147,15 @@ INSERT INTO `question` (`questionno`, `questionname`, `answer`, `variantno`) VAL
 -- --------------------------------------------------------
 
 --
--- Table structure for table `questions`
---
-
-DROP TABLE IF EXISTS `questions`;
-CREATE TABLE IF NOT EXISTS `questions` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `questions` varchar(500) NOT NULL,
-  `answers` varchar(500) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `questions`
---
-
-INSERT INTO `questions` (`id`, `questions`, `answers`) VALUES
-(1, 'Do you believe in ghosts?; Have you ever seen a UFO?; Can cats jump six times their length?; Do you like chocolate milkshakes?; Were you in the swamp yesterday?', 'Yes ;No ;Skip . Yes ;No  ;Skip . Yes ;No  ;Skip . Yes ;No  ;Skip . Yes ;No  ;Skip .'),
-(2, 'Did you see Bigfoot?; Can you see the moon?; Do you know how to swim?; Can you play poker?; Do you have a twin?', 'Yes ;No ;Skip . Yes ;No ;Skip . Yes ;No ;Skip . Yes ;No ;Skip . Yes ;No ;Skip . '),
-(3, 'Were you born in the summer?; Do you believe in Santa Claus?; Can you make yourself disappear?; Were you on Survivor last year?; Do you know the Schrödinger equation of quantum theory?', 'Yes ;No ;Skip . Yes ;No ;Skip .  Yes ;No ;Skip .  Yes ;No ;Skip .  Yes ;No ;Skip .    '),
-(4, 'Do mice really eat cheese?; Is your shoe size 14?; Can you see out the back of your head?; Are Martians really green?; Have elves always live at the North Pole?; Do you have a scar from playing sports?', 'Yes; No ;Skip . Yes; No ;Skip . Yes; No ;Skip . Yes; No ;Skip . Yes; No ;Skip . Yes; No ;Skip . '),
-(5, 'Do you believe in ghosts?; Have you ever seen a UFO?; Can cats jump six times their length?; Do you like chocolate milkshakes?; Were you in the swamp yesterday?', 'Yes ;No  ;Skip . Yes ;No  ;Skip . Yes ;No  ;Skip . Yes ;No  ;Skip . Yes ;No  ;Skip .'),
-(6, 'Did you see Bigfoot?; Can you see the moon?; Do you know how to swim?; Can you play poker?; Do you have a twin?', 'Yes ;No ;Skip . Yes ;No ;Skip . Yes ;No ;Skip . Yes ;No ;Skip . Yes ;No ;Skip . '),
-(7, 'Were you born in the summer?; Do you believe in Santa Claus?; Can you make yourself disappear?; Were you on Survivor last year?; Do you know the Schrödinger equation of quantum theory?', 'Yes ;No ;Skip . Yes ;No ;Skip .  Yes ;No ;Skip .  Yes ;No ;Skip .  Yes ;No ;Skip .    '),
-(8, 'Do mice really eat cheese?; Is your shoe size 14?; Can you see out the back of your head?; Are Martians really green?; Have elves always live at the North Pole?; Do you have a scar from playing sports?', 'Yes; No ;Skip . Yes; No ;Skip . Yes; No ;Skip . Yes; No ;Skip . Yes; No ;Skip . Yes; No ;Skip . '),
-(9, 'Do you believe in ghosts?; Have you ever seen a UFO?; Can cats jump six times their length?; Do you like chocolate milkshakes?; Were you in the swamp yesterday?', 'Yes ;No  ;Skip . Yes ;No  ;Skip . Yes ;No  ;Skip . Yes ;No  ;Skip . Yes ;No  ;Skip .'),
-(10, 'Did you see Bigfoot?; Can you see the moon?; Do you know how to swim?; Can you play poker?; Do you have a twin?', 'Yes ;No ;Skip . Yes ;No ;Skip . Yes ;No ;Skip . Yes ;No ;Skip . Yes ;No ;Skip . '),
-(11, 'Were you born in the summer?; Do you believe in Santa Claus?; Can you make yourself disappear?; Were you on Survivor last year?; Do you know the Schrödinger equation of quantum theory?', 'Yes ;No ;Skip . Yes ;No ;Skip .  Yes ;No ;Skip .  Yes ;No ;Skip .  Yes ;No ;Skip .    '),
-(12, 'Do mice really eat cheese?; Is your shoe size 14?; Can you see out the back of your head?; Are Martians really green?; Have elves always live at the North Pole?; Do you have a scar from playing sports?', 'Yes; No ;Skip . Yes; No ;Skip . Yes; No ;Skip . Yes; No ;Skip . Yes; No ;Skip . Yes; No ;Skip . ');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `station`
 --
 
-DROP TABLE IF EXISTS `station`;
-CREATE TABLE IF NOT EXISTS `station` (
-  `stationno` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `station` (
+  `stationno` int(11) NOT NULL,
   `stationname` varchar(250) NOT NULL,
   `variant` int(11) NOT NULL,
-  `line` int(11) NOT NULL,
-  PRIMARY KEY (`stationno`),
-  KEY `line` (`line`),
-  KEY `variant` (`variant`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
+  `line` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `station`
@@ -217,8 +173,7 @@ INSERT INTO `station` (`stationno`, `stationname`, `variant`, `line`) VALUES
 (9, 'A1', 9, 3),
 (10, 'A2', 10, 3),
 (11, 'A3', 11, 3),
-(12, 'A4', 12, 3),
-(16, 'A6', 10, 2);
+(12, 'A4', 12, 3);
 
 -- --------------------------------------------------------
 
@@ -226,14 +181,12 @@ INSERT INTO `station` (`stationno`, `stationname`, `variant`, `line`) VALUES
 -- Table structure for table `variant`
 --
 
-DROP TABLE IF EXISTS `variant`;
-CREATE TABLE IF NOT EXISTS `variant` (
-  `variantno` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `variant` (
+  `variantno` int(11) NOT NULL,
   `variantname` varchar(250) NOT NULL,
   `serial` varchar(250) NOT NULL,
-  `pdfpath` varchar(250) NOT NULL,
-  PRIMARY KEY (`variantno`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4;
+  `pdfpath` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `variant`
@@ -252,6 +205,77 @@ INSERT INTO `variant` (`variantno`, `variantname`, `serial`, `pdfpath`) VALUES
 (10, 'S_Class', 'ALA2', 'pdfs/ALA2S_Class.pdf'),
 (11, 'S_Class', 'ALA3', 'pdfs/ALA3S_Class.pdf'),
 (12, 'S_Class', 'ALA4', 'pdfs/ALA4S_Class.pdf');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `employee`
+--
+ALTER TABLE `employee`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `line`
+--
+ALTER TABLE `line`
+  ADD PRIMARY KEY (`lineno`);
+
+--
+-- Indexes for table `question`
+--
+ALTER TABLE `question`
+  ADD PRIMARY KEY (`questionno`),
+  ADD KEY `variantno` (`variantno`);
+
+--
+-- Indexes for table `station`
+--
+ALTER TABLE `station`
+  ADD PRIMARY KEY (`stationno`),
+  ADD KEY `line` (`line`),
+  ADD KEY `variant` (`variant`);
+
+--
+-- Indexes for table `variant`
+--
+ALTER TABLE `variant`
+  ADD PRIMARY KEY (`variantno`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `employee`
+--
+ALTER TABLE `employee`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `line`
+--
+ALTER TABLE `line`
+  MODIFY `lineno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `question`
+--
+ALTER TABLE `question`
+  MODIFY `questionno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+
+--
+-- AUTO_INCREMENT for table `station`
+--
+ALTER TABLE `station`
+  MODIFY `stationno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `variant`
+--
+ALTER TABLE `variant`
+  MODIFY `variantno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- Constraints for dumped tables

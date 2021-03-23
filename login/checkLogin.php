@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	include 'resources/connect.php';
+	include '../resources/connect.php';
 	$tableName = "employee";
 	$username = $conn->real_escape_string($_POST['username']);
 	$password = $conn->real_escape_string($_POST['password']);
@@ -20,11 +20,11 @@
 		
 
 		if(strcmp($usergroup, "operator") == 0) {
-			header("Location: operator.php");
+			header("Location: ../operator/operator.php");
 		} else if(strcmp($usergroup, "floor manager")==0){
-			header("Location: success.php");
+			header("Location: ../operator/success.php");
 		} else if(strcmp($usergroup, "admin")==0){
-			header("Location: admin/users/users.php");
+			header("Location: ../admin/users/users.php");
 		} else {
 			echo "Invalid User Group";
 		}

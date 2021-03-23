@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	include 'resources/connect.php';
+	include '../resources/connect.php';
 	$tableName = "employee";
     $name = $conn->real_escape_string($_POST['name']);
 	$username = $_SESSION['email'];
@@ -16,7 +16,7 @@
     echo($sql);
     if ($conn->query($sql) === TRUE) {
         echo "New record created successfully";
-        header("Location: login.php");
+        header("Location: ../index.php");
       } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
       }
