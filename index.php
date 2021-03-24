@@ -28,7 +28,7 @@
 }
 .background{
   
-  background: url('machine.jpg');
+  background: url('images/machine.jpg');
   background-size: cover;
   
 }
@@ -66,7 +66,7 @@
           <div class="row" style="padding: 0px 15px 0px 15px;">
             <div class="col-sm-4" style="background-color: #eee;"></div>
             <div class="col-sm-4 " style="background-color: #eee">
-              <img src="logo.png" class="img-rounded" style="height: 50px;width: 100%"> 
+              <img src="images/logo.png" class="img-rounded" style="height: 50px;width: 100%"> 
 
             </div>
             <div class="col-sm-4" style="background-color: #eee"></div>
@@ -82,6 +82,7 @@
                     <option value="operator">Operator</option>
                     <option value="floor manager">Floor Manager</option>
                     <option value="admin">Admin</option>
+                    <option value="support team">Support Team</option>
                   </select>
                   <div class="invalid-feedback" style="font-weight: bold;">Choose user group to Log in.</div>
                 </div> 

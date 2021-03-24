@@ -15,6 +15,24 @@
         // $result1 = $conn->query($sql1);
         $sql2 = "SELECT * FROM $tableName2 WHERE variantno IN (SELECT variant FROM $tableName1 WHERE stationname ='$station') ";
         $result2 = $conn->query($sql2);
+        
+        if(isset($_SESSION['variant'])){
+            unset($_SESSION['variant']);
+        }
+        if(isset($_SESSION['serial'])){
+            unset($_SESSION['serial']);
+        }
+
+        if(isset($_SESSION['min'])){
+            unset($_SESSION['min']);
+        }
+        if(isset($_SESSION['sec'])){
+            unset($_SESSION['sec']);
+        }
+        if(isset($_SESSION['station'])){
+            $sql3="UPDATE $tableName1 SET issuePresent=0 WHERE stationname= '".$_SESSION['station']."'";
+            $result3 = $conn->query($sql3);
+        }
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +64,7 @@
             include '../includables/sidebar.php';
         ?>
         <!-- Page Content  -->
-        <div id="content">
+        <div id="content" style="overflow: hidden;">
             <?php
                 include '../includables/header.php';
             ?>
@@ -76,7 +94,7 @@
                                     <option value="" disabled selected="true">Select Variant</option> 
                                     <?php
                                         while ($row1=$result2->fetch_assoc()) {
-                                            echo '<option style="color:black;">'.$row1['variantname'].'</option>';
+                                            echo '<option style="color:black;" value='.$row1['variantno'].'>'.$row1['variantname'].'</option>';
                                         }
                                      ?>
                                 </select>
@@ -84,10 +102,12 @@
                             </div>
 
                             <div class="form-group " style="width: 100%;margin-left: 50px;padding: 10px">
-                                <label for="station" style="color: white">Select Serial:</label>
+                                <!-- <label for="station" style="color: white">Select Serial:</label>
                                 <select class="form-control" id="serial" name="serialSel" style="background-color: transparent;border: 0px solid white;color: white;border-bottom-width: 2px;">
                                     <option value="" disabled selected="true">Select Serial</option> 
-                                </select>
+                                </select> -->
+                                <label for="serial" style="color: white;">Serial:</label>
+                                <input type="text" id="serial" autocomplete="off" class="form-control " placeholder="Serial" name="serialSel">
                                 <div class="invalid-feedback" style="font-weight: bold;">Enter Serial.</div>
                             </div> 
                           
@@ -100,7 +120,7 @@
                 </div>
                 <div class="row">
                     <div class="input-group mb-3 col-sm-12 d-flex justify-content-center" style=";margin-top: 20px;">
-                        <input class="btn btn-danger" onclick="validateAndSubmit();" type="button" value="Raise Andon" style="padding: 10px;border-radius: 50px">
+                        <input class="btn btn-danger" onclick="validateAndSubmit();" type="button" value="Submit" style="padding: 10px;border-radius: 50px">
                     </div>
                 </div>
             </form>

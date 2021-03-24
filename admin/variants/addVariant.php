@@ -6,7 +6,7 @@
 	$tableName = "variant";
 
 	$variant = $_POST['addvariantname'];
-	$serial = $_POST['serial'];
+	//$serial = $_POST['serial'];
 
 	$info = pathinfo($_FILES['fileToUpload']['name']);
 	$ext = $info['extension'];
@@ -15,7 +15,7 @@
 	move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $uploadDestinationPath);
 	$databaseDestinationPath = '..%pdfs%'.$documentName;
 
-	$sql = "INSERT INTO `$tableName` (`variantno`, `variantname`, `serial`, `pdfpath`) VALUES (NULL, '$variant', '$serial', '$databaseDestinationPath')";
+	$sql = "INSERT INTO `$tableName` (`variantno`, `variantname`, `serial`, `pdfpath`) VALUES (NULL, '$variant', ' ', '$databaseDestinationPath')";
 
 	if ($conn->query($sql) === TRUE) {
 	  header("Location: variant.php");

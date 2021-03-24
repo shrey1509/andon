@@ -5,6 +5,8 @@
 	use PHPMailer\PHPMailer\SMTP;
 	//unset ($_SESSION["min"]);
 	//unset ($_SESSION["sec"]);
+	include '../resources/connect.php';
+	$tableName="floorManager";
 
 
 	$sc = $_POST['sc'];
@@ -13,44 +15,65 @@
 	$s = $_POST['s'];
 	$q = $_POST['q'];
 	$mt = $_POST['mt'];
+
+	if(isset($_SESSION['line'])){
+            $line=$_SESSION['line'];
+    }
+	if(isset($_SESSION['station'])){
+            $station=$_SESSION['station'];
+        }
+    if(isset($_SESSION['variant'])){
+            $variant=$_SESSION['variant'];
+    }
+    if(isset($_SESSION['serial'])){
+            $serial=$_SESSION['serial'];
+    }
 	
 	$email=array(6);
 	$probs=" ";
 	$i=0;
 	$j=0;
+	$dept="";
+	$totTime=$_POST['min'].":".$_POST['sec'];
 	if($sc!="")
 	{
 		$probs .=$sc." ";
+		$dept .= "Supply Chain"." ";
 		$email[$i++]="";//staff email
 		
 	}
 	if ($m!="") {
 
 		$probs .=$m." ";
+		$dept .= "Maintainence"." ";
 		$email[$i++]="";//staff email
 		
 	}
 	if ($p!="") {
 		
 		$probs .=$p." ";
+		$dept .= "Production"." ";
 		$email[$i++]="";//staff email
 		
 	}
 	if ($s!="") {
 		
 		$probs .=$s." ";
+		$dept .= "Store"." ";
 		$email[$i++]="";//staff email
 		
 	}
 	if ($q!="") {
 		
 		$probs .=$q." ";
+		$dept .= "Quality"." ";
 		$email[$i++]="";//staff email
 		
 	}
 	if ($mt!="") {
 		
 		$probs .=$mt." ";
+		$dept .= "Methods"." ";
 		$email[$i++]="";//staff email
 	}
 
@@ -92,7 +115,7 @@
 	$mail->isHTML(true);
 
 	$mail->Subject = "Issue Raised";
-	$mail->Body = "<i>Issues in: </i>".$probs;
+	$mail->Body = "<i>Issues in: </i><br>"."Line:".$line."<br>"."Station:".$station."<br>"."Variant:".$variant."<br>"."Serial:".$serial."<br>"."Departments:".$dept."<br>"."Reasons:".$probs;
 	$mail->AltBody = "Try";
 
 	try {
@@ -102,8 +125,17 @@
 	    echo "Mailer Error: " . $mail->ErrorInfo;
 	}
 
+	$sql = "UPDATE $tableName SET department='$dept',reason='$probs',totalTime='$totTime' WHERE `serial`='$serial'";
 
-	 header("Location: operator.php");
+	if ($conn->query($sql) === TRUE) {
+	  header("Location: selVariant.php");
+		
+	} else {
+		echo $conn->error;
+	}
+
+	$conn->close();
+	
 
 
 	

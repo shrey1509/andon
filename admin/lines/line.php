@@ -53,7 +53,7 @@
             include '../../includables/sidebar.php';
         ?>
         <!-- Page Content  -->
-        <div id="content">
+        <div id="content" style="overflow: hidden;">
             <?php
                 include '../../includables/header.php';
             ?>

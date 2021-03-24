@@ -13,19 +13,10 @@
         $row = $result->fetch_assoc();
         $sql1 = "SELECT * FROM $tableName1";
         $result1 = $conn->query($sql1);
-        
-        if(isset($_SESSION['min'])){
-            unset($_SESSION['min']);
-        }
-        if(isset($_SESSION['sec'])){
-            unset($_SESSION['sec']);
-        }
         if(isset($_SESSION['line'])){
             unset($_SESSION['line']);
         }
         if(isset($_SESSION['station'])){
-            $sql2="UPDATE $tableName2 SET issuePresent=0 WHERE stationname= '".$_SESSION['station']."'";
-            $result2 = $conn->query($sql2);
             unset($_SESSION['station']);
         }
         if(isset($_SESSION['variant'])){
@@ -34,6 +25,7 @@
         if(isset($_SESSION['serial'])){
             unset($_SESSION['serial']);
         }
+        
         // $sql2 = "SELECT DISTINCT variant FROM $tableName2";
         // $result2 = $conn->query($sql2);
 ?>
@@ -67,7 +59,7 @@
             include '../includables/sidebar.php';
         ?>
         <!-- Page Content  -->
-        <div id="content">
+        <div id="content" style="overflow: hidden;">
             <?php
                 include '../includables/header.php';
             ?>
@@ -121,7 +113,7 @@
                 </div>
                 <div class="row">
                     <div class="input-group mb-3 col-sm-12 d-flex justify-content-center" style=";margin-top: 20px;">
-                        <input class="btn btn-danger" onclick="validateAndSubmit();" type="button" value="Select Variant" style="padding: 10px;border-radius: 50px">
+                        <input class="btn btn-danger" onclick="validateAndSubmit();" type="button" value="Submit" style="padding: 10px;border-radius: 50px">
                     </div>
                 </div>
             </form>

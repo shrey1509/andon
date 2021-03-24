@@ -70,7 +70,7 @@
             include '../includables/sidebar.php';
         ?>
         <!-- Page Content  -->
-        <div id="content">
+        <div id="content" style="overflow: hidden;">
             <?php
                 include '../includables/header.php';
             ?>
@@ -91,7 +91,7 @@
                     <h5 style="padding: 10px;color: white;margin-left: 50px">      Station: <?php echo $station;?></h5>
                 </div>
                 <div class="col-sm-4" style="background-color: #009bcc;height: 50px">
-                    <h5 style="padding: 10px;color: white;margin-left: 50px">      Variant: <?php echo $variant." #".$serial;?></h5>
+                    <h5 style="padding: 10px;color: white;margin-left: 50px">      Variant: <?php echo $variant;?></h5>
                 </div>
             </div>
             <form action="notifyStaff.php" method="POST" id="opForm">
@@ -175,12 +175,13 @@
                              
                             </select>
                         </div>
-
+                        <input type="hidden" name="min" id="min">
+                        <input type="hidden" name="sec" id="sec">
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-group mb-3 col-sm-12 d-flex justify-content-center" style=";margin-top: 75px;">
-                        <input class="btn btn-danger" type="button" onclick="validateAndSubmit();" value="Notify Andon" style="padding: 10px;border-radius: 50px">
+                        <input class="btn btn-danger" type="button" onclick="validateAndSubmit();" value="Submit" style="padding: 10px;border-radius: 50px">
                     </div>
                 </div>
             </form>
@@ -255,6 +256,10 @@
           var qSel = document.getElementById('qSel').value
           var mtSel = document.getElementById('mtSel').value
           var form = document.getElementById('opForm')
+          var min= document.getElementById("minute").innerHTML;
+          var sec= document.getElementById("seconds").innerHTML;
+          document.getElementById("min").value=min;
+          document.getElementById("sec").value=sec;
           if(validate(scSel,mSel,pSel,sSel,qSel,mtSel) == 1) {
 
             form.submit();
@@ -269,6 +274,7 @@
           let intervalId = null;
 
           document.getElementById("clk").style.display = 'block';
+           document.getElementById("ser").style.display = 'block';
 
         intervalId = setInterval(startTimer, 1000);
           function startTimer() {

@@ -25,6 +25,8 @@
 			header("Location: ../operator/success.php");
 		} else if(strcmp($usergroup, "admin")==0){
 			header("Location: ../admin/users/users.php");
+		} else if(strcmp($usergroup, "support team")==0){
+			header("Location: ../operator/success.php");
 		} else {
 			echo "Invalid User Group";
 		}

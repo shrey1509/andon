@@ -53,7 +53,7 @@
             include '../../includables/sidebar.php';
         ?>
         <!-- Page Content  -->
-        <div id="content">
+        <div id="content" style="overflow: hidden;">
             <?php
                 include '../../includables/header.php';
             ?>
@@ -79,11 +79,7 @@
                                 <input type="text" class="form-control" id="variantname" name="addvariantname" placeholder="Enter Variant"/>
                                 <div class="invalid-feedback">Invalid Input</div>
                             </div>
-                             <div class="row">
-                                <label for="serial" style="font-weight: bold;">Serial:</label>
-                                <input type="text" class="form-control" id="serial" name="serial" placeholder="Enter Variant"/>
-                                <div class="invalid-feedback">Invalid Input</div>
-                            </div>
+                             
                             <div class="row">
                                 <label for="fileToUpload" style="font-weight: bold;">Add Pdf/Ppt:</label>
                                 <input type="file" required class="form-control" id="fileToUpload" name="fileToUpload"/>
@@ -152,35 +148,7 @@
             </div>
            <div class="row" style="margin-right: 20px; margin-left: 20px;">
                 <div class="col-md-1"></div>
-                <div class="col-md-3 formContainerAdmin">
-                    <h4 style="text-align: center;">Edit Variant - Serial</h4>
-                    <form action="editVariantSerial.php" method="post">
-                        <div class="form-group">
-                            <div class="row" style="margin-top: 5px;">
-                               <label for="editVariantName" style="font-weight: bold;">Select Variant Name to Edit:</label>
-                                <select class="form-control" id="editVariantName" name="editVariantName">
-                                    <option value="" selected="true" disabled="true">Select</option>
-                                    <?php 
-                                     $result2 = $conn->query($sql2);
-                                        while ($row2=$result2->fetch_assoc()) {
-                                            echo '<option value="'.$row2['variantno'].'">'.$row2['variantname'].'#'.$row2['serial'].'</option>';
-                                        }
-                                    ?>
-                                    
-                                </select>
-                                <div class="invalid-feedback">Invalid Input</div>
-                            </div>
-                            <div class="row" style="margin-top: 5px;">
-                                <label for="newSerialName" style="font-weight: bold;"> New Serial Name:</label>
-                                <input type="text" class="form-control" id="newSerialName" name="newSerialName" placeholder="Enter Serial Name"/>
-                                <div class="invalid-feedback">Invalid Input</div>
-                            </div>
-                            <div class="row" style="margin-top: 10px; justify-content: center;">
-                                <button class="btn btn-primary" type="submit">Edit</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                
                 <div class="col-md-3 formContainerAdmin">
                     <h4 style="text-align: center;">Change Document PDF/PPT</h4>
                     <form action="changeDocument.php" method="post" enctype="multipart/form-data">

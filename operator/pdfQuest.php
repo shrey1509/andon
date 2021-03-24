@@ -23,6 +23,9 @@
         $sql3 = "SELECT * FROM `$tableName2` WHERE `variantno` = '$variantNumber'";
         // $sql3 = "SELECT * FROM $tableName2 WHERE id IN (SELECT questid from $tableName1 WHERE `serial` = '$serial')";
         $result3 = $conn->query($sql3);
+        if(!isset($_SESSION['variant'])){
+            echo '<script> alert("Set Variant First!"); window.location.replace("selVariant.php");</script>';
+        }
 
 
 ?>
@@ -56,7 +59,7 @@
             include '../includables/sidebar.php';
         ?>
         <!-- Page Content  -->
-        <div id="content">
+        <div id="content" style="overflow: hidden;">
             <?php
                 include '../includables/header.php';
             ?>
@@ -71,10 +74,10 @@
                     <h5 style="color: white;margin-left: 50px">      Station: <?php echo $station;?></h5>
                 </div>
                 <div class="col-sm-4" style="background-color: #009bcc;">
-                    <h5 style="color: white;margin-left: 50px">      Variant: <?php echo $variant." #".$serial;?></h5>
+                    <h5 style="color: white;margin-left: 50px">      Variant: <?php echo $variant;?></h5>
                 </div>
             </div>
-
+            <form action="storeResDetails.php" method="POST" id="resForm">
             <div class="row">
                 <div class="col-sm-12" style="height: 50px;margin-bottom: 100px">
 
@@ -94,11 +97,13 @@
 
                                 echo "<h3>".$row3['questionname']."</h3>";   
                                 $answers=explode(";", $row3['answer']);
+                                
                                 for ($k=0; $k <count($answers) ; $k++) { 
                                         
-                                    echo '<label><input type="radio" onclick="getquest('.$i.');" name="ans'.$i.'" required="required"> '.$answers[$k].'   </label>';
+                                    echo '<label><input type="radio" onclick="getquest('.$i.');" name="ans'.$i.'" value="'.$answers[$k].'" required="required"> '.$answers[$k].'   </label>';
                                     echo "  ";
                                 }
+                                echo '<input type="hidden" value="'.count($answers).'" name="count" id="count">';
                                     
                                echo '</div>';
                             // }
@@ -117,12 +122,18 @@
                     ?>" width="100%" height="1000px" />
 
 
+                    <input type="hidden" name="min" id="min">
+                    <input type="hidden" name="sec" id="sec">
                     
                     <div class="input-group mb-3 col-sm-12 d-flex justify-content-center" style=";margin-top: 20px;margin-bottom: 500px">
-                    <a href="issueUnresolved.php" id="TimeTaken" class="btn btn-danger btn-lg active" role="button" type="button" aria-pressed="true" onclick="getTime();" style="border-radius: 20px;margin: 5px">Issue Unresolved</a>
-                    <a href="operator.php" id="Displaytimetaken" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" type="submit" style="border-radius: 20px;margin: 5px">Issue Resolved</a>
+                    <!-- <a href="issueUnresolved.php" id="TimeTaken" value="notify" class="btn btn-danger btn-lg active" role="button" type="button" aria-pressed="true" onclick="getTime();" style="border-radius: 20px;margin: 5px">Go to Andon</a> -->
+                    <!-- <a href="operator.php" id="Displaytimetaken" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" type="submit" style="border-radius: 20px;margin: 5px">Task Resolved</a> -->
+                    <input class="btn btn-danger btn-lg active" type="button" onclick="getTime();" value="Go to Andon" name="unres" style="border-radius: 20px;margin: 5px">
+                     <input class="btn btn-primary btn-lg active" type="button" onclick="getTime1();" value="Task Resolved" name="res" style="border-radius: 20px;margin: 5px">
                     
                     </div> 
+                
+                </form>
 
                     <div style="height: 100px">
                         
@@ -191,6 +202,7 @@
           let intervalId = null;
 
           document.getElementById("clk").style.display = 'block';
+          document.getElementById("ser").style.display = 'block';
 
         intervalId = setInterval(startTimer, 1000);
           function startTimer() {
@@ -238,18 +250,44 @@
           // }
 
         }
-        function getTime()
+        // function getTime()
+        //   {
+        //     var min= document.getElementById("minute").innerHTML;
+        //     var sec= document.getElementById("seconds").innerHTML;
+        //     $.ajax({
+        //                 type:'POST',
+        //                 url:'setTime.php',
+        //                 data: {min : document.getElementById('minute').innerHTML,
+        //                     sec : document.getElementById('seconds').innerHTML,} ,
+
+        //             });
+        //   }
+
+          function getTime1()
           {
             var min= document.getElementById("minute").innerHTML;
             var sec= document.getElementById("seconds").innerHTML;
-            $.ajax({
-                        type:'POST',
-                        url:'setTime.php',
-                        data: {min : document.getElementById('minute').innerHTML,
-                            sec : document.getElementById('seconds').innerHTML,} ,
-
-                    });
+            document.getElementById("min").value=min;
+            document.getElementById("sec").value=sec;
+            
+            let fm= document.getElementById('resForm');
+            fm.submit();
+            
           }
+
+          function getTime()
+          {
+            var min= document.getElementById("minute").innerHTML;
+            var sec= document.getElementById("seconds").innerHTML;
+            document.getElementById("min").value=min;
+            document.getElementById("sec").value=sec;
+            
+            let fm= document.getElementById('resForm');
+            fm.action='storeUnresDetails.php'
+            fm.submit();
+            
+          }
+
 
 
         $(document).ready(function () {

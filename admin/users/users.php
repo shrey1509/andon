@@ -48,7 +48,7 @@
             include '../../includables/sidebar.php';
         ?>
         <!-- Page Content  -->
-        <div id="content">
+        <div id="content" style="overflow: hidden;">
             <?php
                 include '../../includables/header.php';
             ?>
@@ -67,17 +67,12 @@
                 <div class="col-md-1"></div>
                 <div class="col-md-5 formContainerAdmin">
                     <h4 style="text-align: center;">Add User</h4>
-                    <form action="signaccount.php" method="post">
+                    <form action="signaccount.php" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <div class="row">
                                 <label for="name" style="font-weight: bold;">Name:</label>
                                 <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name"/>
                                 <div class="invalid-feedback">Invalid Name</div>
-                            </div>
-                            <div class="row" style="margin-top: 5px;">
-                                <label for="designation" style="font-weight: bold;">Designation:</label>
-                                <input type="text" class="form-control" id="designation" name="designation" placeholder="Enter Designation"/>
-                                <div class="invalid-feedback">Invalid Designation</div>
                             </div>
                             <div class="row" style="margin-top: 5px;">
                                 <label for="email" style="font-weight: bold;">Email:</label>
@@ -98,6 +93,11 @@
                                     <option value="admin">Admin</option>
                                 </select>
                                 <div class="invalid-feedback">Please Select an Usergroup</div>
+                            </div>
+                            <div class="row">
+                                <label for="photoToUpload" style="font-weight: bold;">Add photo:</label>
+                                <input type="file" required class="form-control" id="photoToUpload" name="photoToUpload"/>
+                                <div class="invalid-feedback">Invalid Input</div>
                             </div>
                             <div class="row" style="margin-top: 10px; justify-content: center;">
                                 <button class="btn btn-primary" type="submit">Add</button>
