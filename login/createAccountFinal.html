@@ -56,7 +56,7 @@
             </div>
             <div class="col-sm-4" style="background-color: #eee"></div>
           </div>
-          <form action="signUp.php" method="POST" id="loginForm">
+          <form action="signUp.php" method="POST" id="loginForm" enctype="multipart/form-data">
             <div class="row" style="margin-top: 20px;width:100%">
               <div class="col-sm-1"></div>
               <div class="col-sm-10 center">
@@ -89,10 +89,10 @@
             <div class="row" style="width: 100%">
               <div class="col-sm-1"></div>
               <div class="col-sm-10 center" >
-                <div class="form-group">
-                  <label for="designation" style="color: white;font-weight: bold;">Designation:</label>
-                  <input type="text" id="designation" autocomplete="off" class="form-control round" placeholder="Please Enter your Designation" name="designation">
-                  <div class="invalid-feedback" style="font-weight: bold;">Enter your Designation.</div>
+                <div>
+                    <label for="photoToUpload" style="font-weight: bold;">Add photo:</label>
+                    <input type="file" required class="form-control" id="photoToUpload" name="photoToUpload"/>
+                    <div class="invalid-feedback">Invalid Input</div>
                 </div>
               </div>
               <div class="col-sm-1"></div>
@@ -169,14 +169,7 @@
         $("#username").removeClass("is-invalid");
       }
 
-      if(designation === "" && designation.length == 0) {
-        flag = 0;
-        $("#designation").addClass("is-invalid");
-        return flag;
-      } else {
-        flag = 1;
-        $("#designation").removeClass("is-invalid");
-      }
+      
 
       if(password === "" && password.length == 0) {
         flag = 0;
@@ -192,10 +185,10 @@
     function validateAndSubmit() {
       let name = document.getElementById('name').value;
       let usergroup = document.getElementById('usergroup').value;
-      let designation = document.getElementById('designation').value;
+      
       let password = document.getElementById('password').value;
       let form = document.getElementById('loginForm');
-      if(validate(name, usergroup, designation, password) == 1) {
+      if(validate(name, usergroup, password) == 1) {
         form.submit();
       }
     }

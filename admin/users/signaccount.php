@@ -11,9 +11,9 @@
 	$ext = $photoPath['extension'];
 	$photoName = $name.'.'.$ext;
 	echo $photoName;
-	$uploadDestinationPath = '..\..\images\\'.$photoName;
+	$uploadDestinationPath = '..\..\userimg\\'.$photoName;
 	move_uploaded_file($_FILES['photoToUpload']['tmp_name'], $uploadDestinationPath);
-	$databaseDestinationPath = '../images/'.$photoName;
+	$databaseDestinationPath = '../userimg/'.$photoName;
 	
 
 	$password = md5($password);

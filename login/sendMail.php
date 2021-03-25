@@ -25,16 +25,16 @@
 	$mail->SMTPAuth = true;      
 	$mail->SMTPSecure = 'tls';                    
 	//Provide username and password     
-	$mail->Username = "";//email                 
-	$mail->Password = "";//pass                           
+	$mail->Username = "shreyaswaitforitdorle@gmail.com";//email                 
+	$mail->Password = "waitingforit";//pass                           
 	                          
 	//Set TCP port to connect to
 	$mail->Port = 587;                                   
 
-	$mail->From = "";//from email
-	$mail->FromName = "";
+	$mail->From = "shreyaswaitforitdorle@gmail.com";//from email
+	$mail->FromName = "shreyaswaitforitdorle@gmail.com";
 
-	$mail->addAddress($email, "");//recepient email
+	$mail->addAddress($email, "shreyaswaitforitdorle@gmail.com");//recepient email
 
 	$mail->isHTML(true);
 
