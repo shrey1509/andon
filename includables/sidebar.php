@@ -18,7 +18,7 @@ if($op=="operator")
   ?><nav id="sidebar">
             <div class="sidebar-header">
                 <a class="navbar-brand" href="#">
-                    <img alt="Brand" src="../images/logo.png" style="height: 75px;width: 100%;background-color: white;margin-left: 15px;" align="center">
+                    <img alt="Brand" src="../images/logo.png" style="height: 75px;width: 90%;background-color: white;margin-left: 15px;" align="center">
                 </a>
             </div>
             <ul class="list-unstyled components">
@@ -85,7 +85,7 @@ else if($op=="floor manager")
 	<nav id="sidebar">
             <div class="sidebar-header">
                 <a class="navbar-brand" href="#">
-                    <img alt="Brand" src="images/logo.png" style="height: 75px;width: 100%;background-color: white;margin-left: 15px;" align="center">
+                    <img alt="Brand" src="../images/logo.png" style="height: 75px;width: 90%;background-color: white;margin-left: 15px;" align="center">
                 </a>
             </div>
             <ul class="list-unstyled components">
@@ -125,7 +125,7 @@ else if($op=="admin")
 		<nav id="sidebar">
             <div class="sidebar-header">
                 <a class="navbar-brand" href="#">
-                    <img alt="Brand" src="../../images/logo.png" style="height: 75px;width: 100%;background-color: white;margin-left: 15px;" align="center">
+                    <img alt="Brand" src="../../images/logo.png" style="height: 75px;width: 90%;background-color: white;margin-left: 15px;" align="center">
                 </a>
             </div>
             <ul class="list-unstyled components">
