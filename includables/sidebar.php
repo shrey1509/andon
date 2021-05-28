@@ -1,18 +1,18 @@
 <?php
-if(isset($_SESSION['min'])){
-    $min = $_SESSION['min'];
-}
-else
-{
-    $min=0;
-}
-if(isset($_SESSION['sec'])){
-    $sec = $_SESSION['sec'];
-}
-else
-{
-    $sec=0;
-}
+// if(isset($_SESSION['min'])){
+//     $min = $_SESSION['min'];
+// }
+// else
+// {
+//     $min=0;
+// }
+// if(isset($_SESSION['sec'])){
+//     $sec = $_SESSION['sec'];
+// }
+// else
+// {
+//     $sec=0;
+// }
 if($op=="operator")
 {
   ?><nav id="sidebar">
@@ -54,24 +54,32 @@ if($op=="operator")
                 </li>
                 <li>
                     <div id="ser" style="display: none;">
-                        <h5 style="color: black;padding: 10px;margin-left: 55px">      Serial: <?php echo " #".$serial;?></h5>
+                        <h4 style="color: black;padding: 20px;margin-left: 35px">      Serial: <?php echo " #".$serial;?></h4>
                     </div>
                 </li>
                 
-                <li>
+            <!--     <li>
                     <div align="center" id="clk" style="padding-top: 20px;display: none">
                         <label for="t1" style="text-align: left;color: black">Time Taken:</label>
+                        <h2><time>00:00:00</time></h2>
                         <div class="clock"  style="background-color: white;border-radius: 20px;width: 90%;">
                             <h4 style="color: black">
                                 <span id="hour">0</span>
                                 <span >:</span>
-                                <span id="minute" name="min"><?php echo $min;?></span>
+                                <span id="minute" name="min"><?php echo $min; ?></span>
                                 <span >:</span>
                                 <span id="seconds" name="sec"><?php echo $sec;?></span>
                             </h4>
                             <h1 id="timetaken">
+
                              </h1>
                         </div>
+                    </div>
+                </li> -->
+                <li>
+                    <div align="center" id="clk" style="display: none">
+                        <label for="t1" style="text-align: left;color: black">Time Taken:</label>
+                        <h2 id="t1" style="color: black"><time>00:00:00</time></h2>
                     </div>
                 </li>              
             </ul>
@@ -109,12 +117,12 @@ else if($op=="floor manager")
                         <button class="btn btn-secondary btn-lg" type="submit" style="background-color: white;color: black;border-radius: 20px;border-color: white;width: 90%"><span class="align-left" style="display: inline-flex;align-items: left" ><i class="fas fa-user" style="vertical-align: left"></i></span><span> Members</span>  </button>
                     </div>
                 </li>
-                <li>
+              <!--   <li>
                     <div align="center" style="padding-top: 20px">
                         <label for="t1" style="text-align: left;color: black">Sr.no</label>
                         <textarea class="form-control" id="t1" rows="1" style="border-radius: 20px;width: 90%"></textarea>
                     </div>
-                </li>              
+                </li>   -->            
             </ul>
     </nav>
 <?php
@@ -138,34 +146,44 @@ else if($op=="admin")
                             
                         </div>
                     </div>
-                </li>                
+                </li>
                 <li>
-                    <div align="center" style="padding-top: 20px">
+                    <div align="center" style="padding-top: 10px;">
+                        <a href="../master/master.php" style="background-color: white;color: black;border-radius: 20px;border-color: white;width: 90%"><i class="fas fa-table"></i> Master </a>
+                    </div>
+                </li>                 
+                <li>
+                    <div align="center" style="padding-top: 10px">
                         <a href="../users/users.php"  style="background-color: white;color: black;border-radius: 20px;border-color: white;text-align:center;;width: 90%" ><i class="fas fa-user"></i> Users</a>
                     </div>
                 </li>
                 <li>
-                    <div align="center" style="padding-top: 20px">
+                    <div align="center" style="padding-top: 10px">
                         <a href="../lines/line.php" style="background-color: white;color: black;border-radius: 20px;border-color: white;width: 90%"><span class="align-left" style="display: inline-flex;align-items: left" ><i class="fas fa-th" style="vertical-align: left"></i></span><span> Lines</span>  </a>
                     </div>
                 </li>
                 
                 <li>
-                    <div align="center" style="padding-top: 20px;">
+                    <div align="center" style="padding-top: 10px;">
                         <a href="../stations/station.php" style="background-color: white;color: black;border-radius: 20px;border-color: white;width: 90%"><i class="fas fa-angle-down"></i> Stations</a>
                     </div>
                 </li>  
 
                 <li>
-                    <div align="center" style="padding-top: 20px;">
+                    <div align="center" style="padding-top: 10px;">
                         <a href="../variants/variant.php" style="background-color: white;color: black;border-radius: 20px;border-color: white;width: 90%"><i class="fas fa-exclamation"></i> Variants</a>
                     </div>
                 </li> 
                 <li>
-                   <div align="center" style="padding-top: 20px;">
-                        <a href="../questions/question.php" style="background-color: white;color: black;border-radius: 20px;border-color: white;width: 90%"><i class="fas fa-question"></i> Questions</a>
+                   <div align="center" style="padding-top: 10px;">
+                        <a href="../questions/question.php" style="background-color: white;color: black;border-radius: 20px;border-color: white;width: 90%"><i class="fas fa-question"></i> Instructions</a>
                     </div>
-                </li>           
+                </li>  
+                <li>
+                    <div align="center" style="padding-top: 10px">
+                        <a href="../users/deptemail.php" style="background-color: white;color: black;border-radius: 20px;border-color: white;width: 90%"><span class="align-left" style="display: inline-flex;align-items: left" ><i class="fas fa-at" style="vertical-align: left"></i></span><span> Add Email</span>  </a>
+                    </div>
+                </li>          
             </ul>
         </nav>
         <?php

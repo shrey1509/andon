@@ -11,34 +11,22 @@
         $result = $conn->query($sql);
         $row = $result->fetch_assoc();
 
-        if(isset($_SESSION['min']) && isset($_SESSION['sec'])){
+        // if(isset($_SESSION['min']) && isset($_SESSION['sec'])){
             $station = $_SESSION['station'];
             $line = $_SESSION['line'];
             $variant = $_SESSION['variant'];
             $serial = $_SESSION['serial'];
-            $min = $_SESSION['min'];
-            $sec = $_SESSION['sec'];
-        } else {
-            $line = "-";
-            $station = "-";
-            $variant = "-";
-            $serial = "-";
-            $min = "-";
-            $sec = "-";
-        }
+        // } else {
+        //     $line = "-";
+        //     $station = "-";
+        //     $variant = "-";
+        //     $serial = "-";
+        //     $min = "-";
+        //     $sec = "-";
+        // }
+        //  echo '<script> console.log('.$min.');</script>';
         
-        // $sql2 = "SELECT DISTINCT variant FROM $tableName2";
-        // $result2 = $conn->query($sql2);
-        // $sql3 = "SELECT DISTINCT variant FROM $tableName2";
-        // $result3 = $conn->query($sql3);
-        // $sql4 = "SELECT DISTINCT variant FROM $tableName2";
-        // $result4 = $conn->query($sql4);
-        // $sql5 = "SELECT DISTINCT variant FROM $tableName2";
-        // $result5 = $conn->query($sql5);
-        // $sql6 = "SELECT DISTINCT variant FROM $tableName2";
-        // $result6 = $conn->query($sql6);
-        // $sql7 = "SELECT DISTINCT variant FROM $tableName2";
-        // $result7 = $conn->query($sql7);
+
 ?>
 
 <!DOCTYPE html>
@@ -211,6 +199,29 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
     <script type="text/javascript">
+        var h1 = document.getElementsByTagName('h2')[0],
+        seconds = <?php echo($_SESSION['secs']);?>, minutes = <?php echo($_SESSION['mins']);?>, hours = 0,
+        t;
+
+        function add() {
+            seconds++;
+            if (seconds >= 60) {
+                seconds = 0;
+                minutes++;
+                if (minutes >= 60) {
+                    minutes = 0;
+                    hours++;
+                }
+            }
+            
+            h1.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+          
+
+             timer();
+            }
+            function timer() {
+                t = setTimeout(add, 1000);
+            }
         $(document).ready(function () {
 
 
@@ -256,10 +267,18 @@
           var qSel = document.getElementById('qSel').value
           var mtSel = document.getElementById('mtSel').value
           var form = document.getElementById('opForm')
-          var min= document.getElementById("minute").innerHTML;
-          var sec= document.getElementById("seconds").innerHTML;
-          document.getElementById("min").value=min;
-          document.getElementById("sec").value=sec;
+          $mins = minutes;
+          $secs = seconds;
+           $.ajax({
+                        type:'POST',
+                        url:'setTime.php',
+                        data:{'mins':$mins,'secs':$secs},
+                        success:function(html)
+                        {
+                            // window.location = "./issueUnresolved.php";
+                        }
+
+                    }); 
           if(validate(scSel,mSel,pSel,sSel,qSel,mtSel) == 1) {
 
             form.submit();
@@ -267,40 +286,29 @@
         }
 
         window.onload = () => {
-          let hour = document.getElementById("hour").innerHTML;
-          let minute = document.getElementById("minute").innerHTML;
-          let seconds = document.getElementById("seconds").innerHTML;
-          let totalSeconds = document.getElementById("seconds").innerHTML;;
-          let intervalId = null;
-
+        //   let hour = document.getElementById("hour").innerHTML;
+        //   let minute = document.getElementById("minute").innerHTML;
+        //   let seconds = document.getElementById("seconds").innerHTML;
+        //   let totalSeconds = document.getElementById("seconds").innerHTML;;
+        //   let intervalId = null;
+        //   alert(hour);
           document.getElementById("clk").style.display = 'block';
            document.getElementById("ser").style.display = 'block';
 
-        intervalId = setInterval(startTimer, 1000);
-          function startTimer() {
-            ++totalSeconds;
-            hour = Math.floor(totalSeconds / 3600);
-            minute = Math.floor((totalSeconds - hour * 3600) / 60);
-            seconds = totalSeconds - (hour * 3600 + minute * 60);
+        // intervalId = setInterval(startTimer, 1000);
+        //   function startTimer() {
+        //     ++totalSeconds;
+        //     hour = Math.floor(totalSeconds / 3600);
+        //     minute =  Math.floor((totalSeconds - hour * 3600) / 60);
+        //     seconds = totalSeconds - (hour * 3600 + minute * 60);
+            
+        //     document.getElementById("hour").innerHTML = hour;
+        //     document.getElementById("minute").innerHTML = minute;
+        //     document.getElementById("seconds").innerHTML = seconds;
+        //   }
 
-            document.getElementById("hour").innerHTML = hour;
-            document.getElementById("minute").innerHTML = minute;
-            document.getElementById("seconds").innerHTML = seconds;
-          }
-
-          
-
-          // document.getElementById('Displaytimetaken').addEventListener('click', () => {
-          //   document.getElementById("timetaken").innerHTML = minute + "minutes" + seconds + "seconds";
-          //   reset();
-          // });
-
-          // function reset() {
-          //   totalSeconds = 0;
-          //   document.getElementById("hour").innerHTML = '0';
-          //   document.getElementById("minute").innerHTML = '0';
-          //   document.getElementById("seconds").innerHTML = '0';
-          // }
+        
+            timer();
 
         }
 

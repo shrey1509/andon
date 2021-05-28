@@ -60,20 +60,33 @@
                 </div>
             </div> -->
 
-            <div class="row" style="justify-content: center;align-content: center; margin-top: 10px;">
-                <h2>Add/Delete Users</h2>
-            </div>
-            <div class="row" style="margin-right: 20px; margin-left: 20px;">
+            <div class="container">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Add User</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Delete User</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="search-tab" data-toggle="tab" href="#search" role="tab" aria-controls="profile" aria-selected="false">Search User</a>
+  </li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+  <div class="row" style="margin-right: 20px;margin-top: 50px; margin-left: 20px;justify-content: center;align-content: center">
                 <div class="col-md-1"></div>
-                <div class="col-md-5 formContainerAdmin">
+    <div class="col-md-5 formContainerAdmin">
                     <h4 style="text-align: center;">Add User</h4>
-                    <form action="signaccount.php" method="post" enctype="multipart/form-data">
+                    <form action="signaccount.php" method="post">
                         <div class="form-group">
                             <div class="row">
                                 <label for="name" style="font-weight: bold;">Name:</label>
                                 <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name"/>
                                 <div class="invalid-feedback">Invalid Name</div>
                             </div>
+                       
                             <div class="row" style="margin-top: 5px;">
                                 <label for="email" style="font-weight: bold;">Email:</label>
                                 <input type="text" class="form-control" id="email" name="email" placeholder="Enter Email"/>
@@ -91,12 +104,15 @@
                                     <option value="operator">Operator</option>
                                     <option value="floor manager">Floor Manager</option>
                                     <option value="admin">Admin</option>
+                                    <option value="admin">Maintenance</option>
+                                    <option value="admin">Supply Chain</option>
+
                                 </select>
                                 <div class="invalid-feedback">Please Select an Usergroup</div>
                             </div>
                             <div class="row">
-                                <label for="photoToUpload" style="font-weight: bold;">Add photo:</label>
-                                <input type="file" required class="form-control" id="photoToUpload" name="photoToUpload"/>
+                                <label for="fileToUpload" style="font-weight: bold;">Add Profile Picture:</label>
+                                <input type="file" required class="form-control" id="fileToUpload" name="fileToUpload"/>
                                 <div class="invalid-feedback">Invalid Input</div>
                             </div>
                             <div class="row" style="margin-top: 10px; justify-content: center;">
@@ -105,7 +121,12 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-md-5 formContainerAdmin">
+                </div>
+  
+  </div>
+  <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+  <div class="row" style="margin-right: 20px;margin-top: 50px; margin-left: 20px;justify-content: center;align-content: center">
+  <div class="col-md-5 formContainerAdmin">
                     <h4 style="text-align: center;">Delete User</h4>
                     <form action="deleteaccount.php" method="post">
                         <div class="form-group">
@@ -120,6 +141,35 @@
                         </div>
                     </form>
                 </div>
+                </div>
+  </div>
+  <div class="tab-pane" id="search" role="tabpanel" aria-labelledby="search-tab">
+  <div class="row" style="margin-right: 20px;margin-top: 50px; margin-left: 20px;justify-content: center;align-content: center">
+  <div class="col-md-5 formContainerAdmin">
+                    <h4 style="text-align: center;">Search User</h4>
+                    <form action="deleteaccount.php" method="post">
+                        <div class="form-group">
+                        <div class="row">
+                                <label for="name" style="font-weight: bold;">Name:</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name"/>
+                                <div class="invalid-feedback">Invalid Name</div>
+                            </div>
+                       
+                            <div class="row" style="margin-top: 5px;">
+                                <label for="email" style="font-weight: bold;">Email:</label>
+                                <input type="text" class="form-control" id="email" name="email" placeholder="Enter Email"/>
+                                <div class="invalid-feedback">Invalid Email</div>
+                            </div>
+
+                            <div class="row" style="margin-top: 10px; justify-content: center;">
+                                <button class="btn btn-primary" type="submit">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                </div>
+  </div>
+</div>
             </div>
             <div style="height: 100px;"></div>
         </div>

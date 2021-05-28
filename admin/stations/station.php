@@ -69,12 +69,28 @@
                 </div>
             </div> -->
 
-            <div class="row" style="justify-content: center;align-content: center; margin-top: 10px;">
-                <h2>Add/Delete/Edit Station</h2>
-            </div>
-            <div class="row" style="margin-right: 20px; margin-left: 20px;">
+            <div class="container">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="add-tab" data-toggle="tab" href="#Add" role="tab" aria-controls="home" aria-selected="true">Add Station</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="delete-tab" data-toggle="tab" href="#Delete" role="tab" aria-controls="profile" aria-selected="false">Delete Station</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="edit-tab" data-toggle="tab" href="#Edit" role="tab" aria-controls="profile" aria-selected="false">Assign Station to Line</a>
+  </li>
+  <!-- <li class="nav-item">
+    <a class="nav-link" id="edit-variant-tab" data-toggle="tab" href="#Edit-variant" role="tab" aria-controls="profile" aria-selected="false">Assign  Variant to Station</a>
+  </li> -->
+</ul>
+
+<div class="tab-content">
+
+<div class="tab-pane active" id="Add" role="tabpanel" aria-labelledby="add-tab">
+<div class="row" style="margin-right: 20px; margin-top: 50px;margin-left: 20px;justify-content: center;align-content: center">
                 <div class="col-md-1"></div>
-                <div class="col-md-3 formContainerAdmin">
+                <div class="col-md-4 formContainerAdmin">
                     <h4 style="text-align: center;">Add Station</h4>
                     <form action="addStation.php" method="post">
                         <div class="form-group">
@@ -97,7 +113,7 @@
                                 </select>
                                 <div class="invalid-feedback">Invalid Input</div>
                             </div>
-                             <div class="row" style="margin-top: 5px;">
+                         <!--     <div class="row" style="margin-top: 5px;">
                                <label for="variantname" style="font-weight: bold;">Select Variant Name:</label>
                                 <select class="form-control" id="variantname" name="variantname">
                                     <option value="" selected="true" disabled="true">Select</option>
@@ -110,71 +126,62 @@
                                     
                                 </select>
                                 <div class="invalid-feedback">Invalid Input</div>
-                            </div>
+                            </div> -->
                             <div class="row" style="margin-top: 10px; justify-content: center;">
                                 <button class="btn btn-primary" type="submit">Add</button>
                             </div>
                         </div>
                     </form>
                 </div>
-                <div class="col-md-3 formContainerAdmin">
+            </div>
+   
+</div>
+
+<div class="tab-pane" id="Delete" role="tabpanel" aria-labelledby="delete-tab">
+    <div class="row" style="margin-right: 20px;margin-top: 50px;margin-left: 20px;justify-content: center;align-content: center">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-4 formContainerAdmin">
                     <h4 style="text-align: center;">Delete Station</h4>
                     <form action="deleteStation.php" method="post">
                         <div class="form-group">
-                            <div class="row">
-                               <label for="stationname" style="font-weight: bold;">Select Station Name to delete:</label>
-                                <select class="form-control" id="stationname" name="stationname">
+                             <div class="row" style="margin-top: 5px;">
+                               <label for="lineName" style="font-weight: bold;">Select Line No:</label>
+                                <select class="form-control" id="lineName" name="lineName">
                                     <option value="" selected="true" disabled="true">Select</option>
                                     <?php 
-                                        $stationResult = $conn->query($stationSql);
-                                        while ($row=$stationResult->fetch_assoc()) {
-                                            echo '<option value="'.$row['stationno'].'">'.$row['stationname'].'</option>';
+                                        $lineResult = $conn->query($lineSql);
+                                        while ($row=$lineResult->fetch_assoc()) {
+                                            echo '<option value="'.$row['lineno'].'">'.$row['linename'].'</option>';
                                         }
                                     ?>
                                     
                                 </select>
                                 <div class="invalid-feedback">Invalid Input</div>
                             </div>
+                           <div class="row">
+                               <label for="stationName" style="font-weight: bold;">Select Station Name:</label>
+                                <select class="form-control" id="stationName" name="stationName">
+                                    <option value="" disabled selected="true">Select Station</option> 
+                                </select>
+                                <div class="invalid-feedback">Invalid Input</div>
+                            </div>
+                           
                             <div class="row" style="margin-top: 10px; justify-content: center;">
                                 <button class="btn btn-primary" type="submit">Delete</button>
                             </div>
                         </div>
                     </form>
                 </div>
-                <div class="col-md-3 formContainerAdmin">
-                    <h4 style="text-align: center;">Edit Station Name</h4>
-                    <form action="editStation.php" method="post">
-                        <div class="form-group">
-                            <div class="row">
-                               <label for="stationname" style="font-weight: bold;">Select Station Name to Edit:</label>
-                                <select class="form-control" id="stationname" name="stationname">
-                                    <option value="" selected="true" disabled="true">Select</option>
-                                    <?php 
-                                        $stationResult = $conn->query($stationSql);
-                                        while ($row=$stationResult->fetch_assoc()) {
-                                            echo '<option value="'.$row['stationno'].'">'.$row['stationname'].'</option>';
-                                        }
-                                    ?>
-                                    
-                                </select>
-                                <div class="invalid-feedback">Invalid Input</div>
-                            </div>
-                            <div class="row" style="margin-top: 5px;">
-                                <label for="newstation" style="font-weight: bold;">Name of Station:</label>
-                                <input type="text" class="form-control" id="newstation" name="newstation" placeholder="Enter Station"/>
-                                <div class="invalid-feedback">Invalid Input</div>
-                            </div>
-                            <div class="row" style="margin-top: 10px; justify-content: center;">
-                                <button class="btn btn-primary" type="submit">Edit</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="row" style="margin-right: 20px; margin-left: 20px;">
+    </div>
+</div>
+
+<div class="tab-pane" id="Edit" role="tabpanel" aria-labelledby="edit-tab">
+   
+        <div class="row" style="margin-right: 20px;margin-top: 50px; margin-left: 20px;justify-content: center;align-content: center">
                 <div class="col-md-1"></div>
-                <div class="col-md-3 formContainerAdmin">
-                    <h4 style="text-align: center;">Edit Station Line</h4>
+                <div class="col-md-4 formContainerAdmin">
+                    <h4 style="text-align: center;">Assign Station to Line</h4>
                     <form action="editStationLine.php" method="post">
                         <div class="form-group">
                             <div class="row">
@@ -211,45 +218,10 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-md-3 formContainerAdmin">
-                    <h4 style="text-align: center;">Edit Station Variant</h4>
-                    <form action="editStationVariant.php" method="post">
-                        <div class="form-group">
-                            <div class="row">
-                               <label for="stationname" style="font-weight: bold;">Select Station Name to Edit:</label>
-                                <select class="form-control" id="stationname" name="stationname">
-                                    <option value="" selected="true" disabled="true">Select</option>
-                                    <?php 
-                                        $stationResult = $conn->query($stationSql);
-                                        while ($row=$stationResult->fetch_assoc()) {
-                                            echo '<option value="'.$row['stationno'].'">'.$row['stationname'].'</option>';
-                                        }
-                                    ?>
-                                    
-                                </select>
-                                <div class="invalid-feedback">Invalid Input</div>
-                            </div>
-                            <div class="row" style="margin-top: 5px;">
-                               <label for="variantno" style="font-weight: bold;">Select Variant Name:</label>
-                                <select class="form-control" id="variantno" name="variantno">
-                                    <option value="" selected="true" disabled="true">Select</option>
-                                    <?php 
-                                        $variantResult = $conn->query($variantSql);
-                                        while ($row=$variantResult->fetch_assoc()) {
-                                            echo '<option value="'.$row['variantno'].'">'.$row['variantname']."#".$row['serial'].'</option>';
-                                        }
-                                    ?>
-                                    
-                                </select>
-                                <div class="invalid-feedback">Invalid Input</div>
-                            </div>
-                            <div class="row" style="margin-top: 10px; justify-content: center;">
-                                <button class="btn btn-primary" type="submit">Edit</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    </div>
+</div>
+
+
             <div style="height: 100px;"></div>
         </div>
     </div>
@@ -265,6 +237,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     <!-- jQuery Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -277,6 +250,30 @@
                 $('.collapse.in').toggleClass('in');
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
             });
+        });
+
+         $('#lineName').on('change',function(){
+                $line=$(this).val();
+                console.log($line);
+                if ($line) {
+                    $.ajax({
+                        type:'POST',
+                        url:'fetchLineData.php',
+                        data:'line='+$line,
+                        
+                        success:function(html)
+                        {
+                            //console.log($line);
+                            console.log(html);
+                            $('#stationName').html(html);
+
+                        }
+
+                    });
+                }
+                else{
+                    $('#stationName').html('<option value="">Invalid</option>');
+                }
         });
         $('#logoutButton').on('click', logout);
 

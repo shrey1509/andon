@@ -12,7 +12,7 @@
 		echo '<option value="" disabled selected="true">Select Station Number</option>';
 		while ($rowa=$result->fetch_assoc()) {
 			
-				echo '<option style="color:black;">'.$rowa['stationname'].'</option>';
+				echo '<option style="color:black;" value="'.$rowa['stationno'].'">'.$rowa['stationname'].'</option>';
 			
 		}
 	}

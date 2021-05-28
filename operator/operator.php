@@ -8,6 +8,7 @@
         // $tableName2 = "variant";
         $id = $_SESSION['userid'];
         $op = $_SESSION['usergroup'];
+        
         $sql = "SELECT * FROM $tableName WHERE id = $id";
         $result = $conn->query($sql);
         $row = $result->fetch_assoc();

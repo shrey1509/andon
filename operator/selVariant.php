@@ -5,15 +5,18 @@
         $tableName = "employee";
         $tableName1 = "station";
         $tableName2 = "variant";
+        $tableName3 = "line";
         $id = $_SESSION['userid'];
         $op = $_SESSION['usergroup'];
         $station = $_SESSION['station'];
+        $line = $_SESSION['line'];
+        $_SESSION['ans']="";
         $sql = "SELECT * FROM $tableName WHERE id = $id";
         $result = $conn->query($sql);
         $row = $result->fetch_assoc();
-        // $sql1 = "SELECT * FROM $tableName1";
+        // $sql1 = "SELECT lineno FROM $tableName3 ";
         // $result1 = $conn->query($sql1);
-        $sql2 = "SELECT * FROM $tableName2 WHERE variantno IN (SELECT variant FROM $tableName1 WHERE stationname ='$station') ";
+        $sql2 = "SELECT * FROM $tableName2 WHERE lineno IN (SELECT lineno FROM $tableName3 WHERE linename='$line')";
         $result2 = $conn->query($sql2);
         
         if(isset($_SESSION['variant'])){
@@ -23,16 +26,15 @@
             unset($_SESSION['serial']);
         }
 
-        if(isset($_SESSION['min'])){
-            unset($_SESSION['min']);
+         $_SESSION['mins']=0;
+         $_SESSION['secs']=0;
+        if(isset($_SESSION['questno'])){
+            unset($_SESSION['questno']);
         }
-        if(isset($_SESSION['sec'])){
-            unset($_SESSION['sec']);
-        }
-        if(isset($_SESSION['station'])){
-            $sql3="UPDATE $tableName1 SET issuePresent=0 WHERE stationname= '".$_SESSION['station']."'";
-            $result3 = $conn->query($sql3);
-        }
+        // if(isset($_SESSION['station'])){
+        //     $sql3="UPDATE $tableName1 SET issuePresent=0 WHERE stationname= '".$_SESSION['station']."'";
+        //     $result3 = $conn->query($sql3);
+        // }
 ?>
 
 <!DOCTYPE html>
@@ -56,6 +58,14 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 </head>
+<style>
+
+input[type="text"]::placeholder {  
+               
+               color: white;
+             }
+    </style>
+
 <body style="margin: 0px">
 
     <div class="wrapper">
@@ -107,8 +117,8 @@
                                     <option value="" disabled selected="true">Select Serial</option> 
                                 </select> -->
                                 <label for="serial" style="color: white;">Serial:</label>
-                                <input type="text" id="serial" autocomplete="off" class="form-control " placeholder="Serial" name="serialSel">
-                                <div class="invalid-feedback" style="font-weight: bold;">Enter Serial.</div>
+                                <input type="text" id="serial" autocomplete="off" class="form-control " style="background-color: transparent;border: 0px solid white;color: white;border-bottom-width: 2px;" placeholder="Serial" name="serialSel">
+                                <div class="invalid-feedback" style="font-weight: bold; color: white;">Enter Serial.</div>
                             </div> 
                           
                         </div>

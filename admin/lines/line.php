@@ -65,12 +65,27 @@
                 </div>
             </div> -->
 
-            <div class="row" style="justify-content: center;align-content: center; margin-top: 10px;">
-                <h2>Add/Delete/Edit Line</h2>
-            </div>
-            <div class="row" style="margin-right: 20px; margin-left: 20px;">
-                <div class="col-md-1"></div>
-                <div class="col-md-3 formContainerAdmin">
+           
+            <div class="container">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="add-tab" data-toggle="tab" href="#Add" role="tab" aria-controls="home" aria-selected="true">Add Line</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="delete-tab" data-toggle="tab" href="#Delete" role="tab" aria-controls="profile" aria-selected="false">Delete Line</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="edit-tab" data-toggle="tab" href="#Edit" role="tab" aria-controls="profile" aria-selected="false">Edit Line</a>
+  </li>
+</ul>
+
+<div class="tab-content">
+
+<div class="tab-pane active" id="Add" role="tabpanel" aria-labelledby="add-tab">
+    <div class="row" style="margin-right: 20px;margin-top: 50px; margin-left: 20px;justify-content: center;align-content: center">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-4 formContainerAdmin">
                     <h4 style="text-align: center;">Add Line</h4>
                     <form action="addLine.php" method="post">
                         <div class="form-group">
@@ -85,7 +100,14 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-md-3 formContainerAdmin">
+    </div>
+</div>
+
+<div class="tab-pane" id="Delete" role="tabpanel" aria-labelledby="delete-tab">
+<div class="row" style="margin-right: 20px; margin-top: 50px;margin-left: 20px;justify-content: center;align-content: center">
+                <div class="col-md-1">
+                </div>
+<div class="col-md-4 formContainerAdmin">
                     <h4 style="text-align: center;">Delete Line</h4>
                     <form action="deleteline.php" method="post">
                         <div class="form-group">
@@ -94,9 +116,9 @@
                                 <select class="form-control" id="linename" name="deleteLineName">
                                     <option value="" selected="true" disabled="true">Select</option>
                                     <?php 
-                                        while ($row2=$result2->fetch_assoc()) {
-                                            echo '<option value="'.$row2['linename'].'">'.$row2['linename'].'</option>';
-                                        }
+                                       while ($row2=$result2->fetch_assoc()) {
+                                           echo '<option value="'.$row2['linename'].'">'.$row2['linename'].'</option>';
+                                      }
                                     ?>
                                     
                                 </select>
@@ -108,7 +130,15 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-md-3 formContainerAdmin">
+                </div>
+
+</div>
+
+  <div class="tab-pane" id="Edit" role="tabpanel" aria-labelledby="edit-tab">
+  <div class="row" style="margin-right: 20px;margin-top: 50px; margin-left: 20px;justify-content: center;align-content: center">
+                <div class="col-md-1">
+                </div>
+  <div class="col-md-4 formContainerAdmin">
                     <h4 style="text-align: center;">Edit Line</h4>
                     <form action="editline.php" method="post">
                         <div class="form-group">
@@ -116,7 +146,7 @@
                                <label for="linename" style="font-weight: bold;">Select Line Name to Edit:</label>
                                 <select class="form-control" id="linename" name="editLineName">
                                     <option value="" selected="true" disabled="true">Select</option>
-                                    <?php 
+                                   <?php 
                                      $result2 = $conn->query($sql2);
                                         while ($row2=$result2->fetch_assoc()) {
                                             echo '<option value="'.$row2['linename'].'">'.$row2['linename'].'</option>';
@@ -137,7 +167,11 @@
                         </div>
                     </form>
                 </div>
-            </div>
+</div>
+</div>
+</div>
+</div>
+
            
             <div style="height: 100px;"></div>
         </div>

@@ -5,6 +5,7 @@
         $tableName = "employee";
         $tableName1 = "variant";
         $tableName2 = "question";
+        $tableName3 = "station";
         $id = $_SESSION['userid'];
         $op = $_SESSION['usergroup'];
         $line = $_SESSION['line'];
@@ -18,15 +19,30 @@
         $result1 = $conn->query($sql1);
         $variantrow = $result1->fetch_assoc();
         $variantNumber = $variantrow['variantno'];
-        $sql2 = "SELECT pdfpath FROM $tableName1 WHERE `serial` = '$serial'";
+        $sql2 = "SELECT * FROM $tableName3 WHERE `stationno` = $station";
         $result2 = $conn->query($sql2);
-        $sql3 = "SELECT * FROM `$tableName2` WHERE `variantno` = '$variantNumber'";
+        $sql3 = "SELECT * FROM `$tableName2` WHERE `stationno` = '$station'";
         // $sql3 = "SELECT * FROM $tableName2 WHERE id IN (SELECT questid from $tableName1 WHERE `serial` = '$serial')";
         $result3 = $conn->query($sql3);
         if(!isset($_SESSION['variant'])){
             echo '<script> alert("Set Variant First!"); window.location.replace("selVariant.php");</script>';
         }
-
+        if(!isset($_SESSION["questno"])) {
+          $_SESSION["questno"]=0;
+        } 
+        echo '<script> console.log('.$_SESSION["questno"].');</script>';
+        $questionsList = "";
+        while ($row3=$result3->fetch_assoc()) {
+                            $questionsList .=$row3['questionname'];    
+                            $questionsList .=";";  
+                        }
+        $questions=explode(";", $questionsList);
+        // print_r($questions);
+        $qno = $_SESSION["questno"];
+        // if(isset($_SESSION['min']) && isset($_SESSION['sec'])){
+        //     $min = $_SESSION['min'];
+        //     $sec = $_SESSION['sec'];
+        // }
 
 ?>
 
@@ -82,33 +98,43 @@
                 <div class="col-sm-12" style="height: 50px;margin-bottom: 100px">
 
                     <div id="ra1" style="margin-bottom: 50px;margin-left: 50px;margin-top: 50px">
-                        <h2 id="thanks">Thanks For Answering!</h2>
+                        <div id="thanks">
+                            <h2>Thanks For Answering!</h2>
+                            <input class="btn btn-primary btn-lg active" type="button" onclick="submitForm();" value="Submit" name="res" style="border-radius: 20px;margin: 5px">
+                        </div>
+                        
                     <?php
                         $countOfQuestions = $result3->num_rows;
-                        $i = 0;
-                        while ($row3=$result3->fetch_assoc()) {
-                            // $questions=explode(";", $row3['questions']);
+                        
+        
+                        // print_r($questionsList);
+
+                            
+                             // print_r($questions);
                             // $answersOver=explode(".", $row3['answers']);
+                            for ($i=$_SESSION["questno"]; $i < $countOfQuestions; $i++) { 
                             echo '<input id="inp" type="hidden" value="'.$countOfQuestions.'">';
-                            // for ($i=0; $i<$countOfQuestions ; $i++) { 
+                            // echo '<script> console.log('.$questions[$_SESSION["questno"]].');</script>';
+                            
                                 ?>
                                 <div id="<?php echo 'rad'.$i; ?>">
-                                <?php 
 
-                                echo "<h3>".$row3['questionname']."</h3>";   
-                                $answers=explode(";", $row3['answer']);
-                                
-                                for ($k=0; $k <count($answers) ; $k++) { 
-                                        
-                                    echo '<label><input type="radio" onclick="getquest('.$i.');" name="ans'.$i.'" value="'.$answers[$k].'" required="required"> '.$answers[$k].'   </label>';
-                                    echo "  ";
-                                }
-                                echo '<input type="hidden" value="'.count($answers).'" name="count" id="count">';
-                                    
+                                <h3 style="color:black;"><?php echo($questions[$i]); ?></h3><?php
+                                echo '<script> console.log("rad'.$i.'");</script>';
+                                echo '<script> console.log("'.$questions[$i].'");</script>'; 
+                                echo '<input class="btn btn-primary btn-lg active" type="button" onclick="getquest('.$i.');" value="Yes" name="res" style="border-radius: 20px;margin: 5px">';
+                                echo '<input class="btn btn-danger btn-lg active" type="button" onclick="switchandon('.$i.');" value="No" name="unres" style="border-radius: 20px;margin: 5px">';
                                echo '</div>';
-                            // }
-                               $i++;
+
+                                
+                               
+
+                               
                         }
+                        $_SESSION["questno"]++;
+                        // $qno++;
+
+
 
                         ?>
                             
@@ -117,7 +143,7 @@
                     <embed style="border: solid black 20px;" src=
                     "<?php 
                         while ($row2=$result2->fetch_assoc()) {
-                                    echo str_replace("%", "/",$row2['pdfpath']);     
+                                    echo str_replace("%", "/",$row2['pdfPath']);  
                                     }
                     ?>" width="100%" height="1000px" />
 
@@ -125,13 +151,11 @@
                     <input type="hidden" name="min" id="min">
                     <input type="hidden" name="sec" id="sec">
                     
-                    <div class="input-group mb-3 col-sm-12 d-flex justify-content-center" style=";margin-top: 20px;margin-bottom: 500px">
-                    <!-- <a href="issueUnresolved.php" id="TimeTaken" value="notify" class="btn btn-danger btn-lg active" role="button" type="button" aria-pressed="true" onclick="getTime();" style="border-radius: 20px;margin: 5px">Go to Andon</a> -->
-                    <!-- <a href="operator.php" id="Displaytimetaken" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" type="submit" style="border-radius: 20px;margin: 5px">Task Resolved</a> -->
+                  <!--   <div class="input-group mb-3 col-sm-12 d-flex justify-content-center" style=";margin-top: 20px;margin-bottom: 500px">
                     <input class="btn btn-danger btn-lg active" type="button" onclick="getTime();" value="Go to Andon" name="unres" style="border-radius: 20px;margin: 5px">
                      <input class="btn btn-primary btn-lg active" type="button" onclick="getTime1();" value="Task Resolved" name="res" style="border-radius: 20px;margin: 5px">
                     
-                    </div> 
+                    </div>  -->
                 
                 </form>
 
@@ -166,17 +190,61 @@
     <script type="text/javascript">
 
         var size= document.getElementById("inp").value;
+        // var questno= document.getElementById("questno").value;
+        var h1 = document.getElementsByTagName('h2')[0],
+        seconds = <?php echo($_SESSION['secs']);?>, minutes = <?php echo($_SESSION['mins']);?>, hours = 0,
+        t;
+
+        function add() {
+            seconds++;
+            if (seconds >= 60) {
+                seconds = 0;
+                minutes++;
+                if (minutes >= 60) {
+                    minutes = 0;
+                    hours++;
+                }
+            }
+            
+            h1.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+          
+
+             timer();
+            }
+            function timer() {
+                t = setTimeout(add, 1000);
+            }
+
+        function submitForm(){
+            $mins = minutes;
+            $secs = seconds;
+            $.ajax({
+                        type:'POST',
+                        url:'setTime.php',
+                        data:{'mins':$mins,'secs':$secs},
+                        success:function(html)
+                        {
+                            // window.location = "./issueUnresolved.php";
+                        }
+
+                    }); 
+            let fm= document.getElementById('resForm');
+            fm.submit();
+        }
         
         $("#thanks").hide();
-        for (var i =1; i < size; i++) {
+
+        for (var i =<?php echo($_SESSION['questno']++); ?>; i < size; i++) {
             $("#rad"+i).hide();
         }
+
         function sleep(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
 
         async function getquest(i)
         {
+            $ansYes = "Yes";
             await sleep(1000);
             if((size-1)>i)
             {
@@ -189,31 +257,73 @@
                 $("#rad"+i).hide();
                 $("#thanks").show();
             }
+            $.ajax({
+                        type:'POST',
+                        url:'setYes.php',
+                        data:'ans='+$ansYes,
+                        success:function(html)
+                        {
+                            // window.location = "./issueUnresolved.php";
+                        }
+
+                    });
 
         }
 
+        async function switchandon(qno)
+        {
+            $qno = qno;
+            $mins = minutes;
+            $secs = seconds;
+           
+            $.ajax({
+                        type:'POST',
+                        url:'setTime.php',
+                        data:{'mins':$mins,'secs':$secs},
+                        success:function(html)
+                        {
+                            // window.location = "./issueUnresolved.php";
+                        }
+
+                    }); 
+            $.ajax({
+                        type:'POST',
+                        url:'fetchQuestNo.php',
+                        data:'questno='+$qno,
+                        success:function(html)
+                        {
+                            window.location = "./issueUnresolved.php";
+                        }
+
+                    });
+              
+
+        }
+        
         
 
         window.onload = () => {
-          let hour = 0;
-          let minute = 0;
-          let seconds = 0;
-          let totalSeconds = 0;
-          let intervalId = null;
+        //   let hour = document.getElementById("hour").innerHTML;;
+        //   let minute = document.getElementById("minute").innerHTML;
+        //   let seconds = document.getElementById("seconds").innerHTML;
+        //   let totalSeconds = document.getElementById("seconds").innerHTML;
+        //   let intervalId = null;
 
           document.getElementById("clk").style.display = 'block';
           document.getElementById("ser").style.display = 'block';
 
-        intervalId = setInterval(startTimer, 1000);
-          function startTimer() {
-            ++totalSeconds;
-            hour = Math.floor(totalSeconds / 3600);
-            minute = Math.floor((totalSeconds - hour * 3600) / 60);
-            seconds = totalSeconds - (hour * 3600 + minute * 60);
+        // intervalId = setInterval(startTimer, 1000);
+        //   function startTimer() {
+        //     ++totalSeconds;
+        //     hour = Math.floor(totalSeconds / 3600);
+        //     minute = Math.floor((totalSeconds - hour * 3600) / 60);
+        //     seconds = totalSeconds - (hour * 3600 + minute * 60);
 
-            document.getElementById("hour").innerHTML = hour;
-            document.getElementById("minute").innerHTML = minute;
-            document.getElementById("seconds").innerHTML = seconds;
+        //     document.getElementById("hour").innerHTML = hour;
+        //     document.getElementById("minute").innerHTML = minute;
+        //     document.getElementById("seconds").innerHTML = seconds;
+        
+            timer();
           }
 
           
@@ -249,7 +359,7 @@
           //   document.getElementById("seconds").innerHTML = '0';
           // }
 
-        }
+        // }
         // function getTime()
         //   {
         //     var min= document.getElementById("minute").innerHTML;
@@ -263,30 +373,30 @@
         //             });
         //   }
 
-          function getTime1()
-          {
-            var min= document.getElementById("minute").innerHTML;
-            var sec= document.getElementById("seconds").innerHTML;
-            document.getElementById("min").value=min;
-            document.getElementById("sec").value=sec;
+          // function getTime1()
+          // {
+          //   var min= document.getElementById("minute").innerHTML;
+          //   var sec= document.getElementById("seconds").innerHTML;
+          //   document.getElementById("min").value=min;
+          //   document.getElementById("sec").value=sec;
             
-            let fm= document.getElementById('resForm');
-            fm.submit();
+          //   let fm= document.getElementById('resForm');
+          //   fm.submit();
             
-          }
+          // }
 
-          function getTime()
-          {
-            var min= document.getElementById("minute").innerHTML;
-            var sec= document.getElementById("seconds").innerHTML;
-            document.getElementById("min").value=min;
-            document.getElementById("sec").value=sec;
+          // function getTime()
+          // {
+          //   var min= document.getElementById("minute").innerHTML;
+          //   var sec= document.getElementById("seconds").innerHTML;
+          //   document.getElementById("min").value=min;
+          //   document.getElementById("sec").value=sec;
             
-            let fm= document.getElementById('resForm');
-            fm.action='storeUnresDetails.php'
-            fm.submit();
+          //   let fm= document.getElementById('resForm');
+          //   fm.action='storeUnresDetails.php'
+          //   fm.submit();
             
-          }
+          // }
 
 
 

@@ -7,6 +7,7 @@
 		$tableName1 = "employee";
 		$tableName2 = "question";
 		$tableName3 = "variant";
+		$tableName4 = "station";
 		$id = $_SESSION['userid'];
 		$station=$_SESSION['station'];
 		$variant=$_SESSION['variant'];
@@ -16,24 +17,24 @@
 		$_SESSION['min']=$_POST['min'];
 		$_SESSION['sec']=$_POST['sec'];
 		$totalTime=$min.":".$sec;
-		$count=$_POST['count'];
+		// $count=$_POST['count'];
 		$timeStamp=date("Y-m-d H:i:s");
 		$actionTaken="unsolved";
 		$department="";
 		$reason="";
-		$answers="";
-		$count++;
-		for ($i=0; $i < $count; $i++) { 
-			$answers.=$_POST['ans'.$i].",";
-		}
-		echo $answers;
+		$answers=$_SESSION['ans'];
+		// $count++;
+		// for ($i=0; $i < $count; $i++) { 
+		// 	$answers.=$_POST['ans'.$i].",";
+		// }
+		// echo $answers;
 
 		$empSql = "SELECT name FROM $tableName1 WHERE id=".$id;
 		$result=$conn->query($empSql);
 		$row=$result->fetch_assoc();
 		$name=$row['name'];
 		$questions="";
-		$questSql = "SELECT questionname FROM $tableName2 WHERE variantno IN (SELECT variantno FROM $tableName3 WHERE `serial`='".$serial."')";
+		$questSql = "SELECT questionname FROM $tableName2 WHERE stationno=$station";
 		$result1=$conn->query($questSql);
 		while($row1 = $result1->fetch_assoc()) {
 		$questions.=$row1['questionname'];

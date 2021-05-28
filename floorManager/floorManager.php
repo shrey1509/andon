@@ -14,6 +14,23 @@
         $tableName2 = "line";
         $sql2 = "SELECT * FROM $tableName2";
         $result2 = $conn->query($sql2);
+
+        $tableNameStation = "station";
+        $stationSql = "SELECT * FROM $tableNameStation";
+        $resultStation = $conn->query($stationSql);
+        $sc = 'Supply Chain';
+        $m = 'Maintainence';
+        $p = 'Production';
+        $st = 'Store';
+        $q = 'Quality';
+        $mt = 'Methods';
+        $scCount=0;
+        $mCount=0;
+        $pCount=0;
+        $stCount=0;
+        $qCount=0;
+        $mtCount=0;
+
 ?>
 
 <!DOCTYPE html>
@@ -22,6 +39,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="refresh" content="15">
 
     <title>Admin</title>
 
@@ -119,10 +137,18 @@
             include '../includables/sidebar.php';
         ?>
         <!-- Page Content  -->
-        <div id="content">
+        <div id="content" style="overflow: hidden">
             <?php
                 include '../includables/header.php';
             ?>
+
+        <div class="row">
+                <div class="col-sm-12">
+                    <div class="maintxt" style="height: 200px;">
+                        <h4 class="centered" style="text-align: center;color: white;width: 100%;padding: 0px;font-weight: bold">Andon Management System</h4>
+                    </div>
+                </div>
+            </div>
 
         <div class = "row" style="background-color:#f8f8ff;margin:3px">
             <div id="wrapper">
@@ -150,7 +176,7 @@
                         $j = 0;
                         for ($j=0; $j <$countOfStations ; $j++){
                             $stationDataRow = $result3->fetch_assoc();
-                            if($stationDataRow['issuePresent'] == 1){
+                            if($stationDataRow['issuePresent'] > 0){
                         ?>
                         <div class="td" style="border-bottom: 2px solid grey" title="<?php echo $stationDataRow['stationname']?>">
                             <div class="circleRed"></div> 
@@ -170,85 +196,16 @@
                     }
                 ?>
                 </div>
-            </div>
-        </div>
-
-        <div class="row" style="margin: 20px;margin-top: 10px">
-            <div class="col-sm-2" style="border: 1px solid grey;text-align: center;">
-                <h4>
-                    Supply Chain
-                </h4>
-                <div class="circleDept">
-                    
-                    <div class="circleSolved"><h4 style="margin: 12px;color: white">10</h4></div>
-
-                    <div class="circleUnsolved"><h4 style="margin: 12px;color: white">10</h4></div>
-                     <h1 style="margin: 30px;color: white">10</h1>
-                </div>
                 
             </div>
-            <div class="col-sm-2" style="border: 1px solid grey;text-align: center;">
-                <h4>
-                    Maintainence
-                </h4>
-                <div class="circleDept">
-                    
-                    <div class="circleSolved"><h4 style="margin: 12px;color: white">10</h4></div>
-
-                    <div class="circleUnsolved"><h4 style="margin: 12px;color: white">10</h4></div>
-                     <h1 style="margin: 30px;color: white">10</h1>
-                </div>
-            </div>
-            <div class="col-sm-2" style="border: 1px solid grey;text-align: center;">
-                <h4>
-                    Production
-                </h4>
-                <div class="circleDept">
-                    
-                    <div class="circleSolved"><h4 style="margin: 12px;color: white">10</h4></div>
-
-                    <div class="circleUnsolved"><h4 style="margin: 12px;color: white">10</h4></div>
-                     <h1 style="margin: 30px;color: white">10</h1>
-                </div>
-            </div>
-            <div class="col-sm-2" style="border: 1px solid grey;text-align: center;">
-                <h4>
-                    Store
-                </h4>
-                <div class="circleDept" >
-                    
-                    <div class="circleSolved"><h4 style="margin: 12px;color: white">10</h4></div>
-
-                    <div class="circleUnsolved"><h4 style="margin: 12px;color: white">10</h4></div>
-                     <h1 style="margin: 30px;color: white">10</h1>
-                </div>
-            </div>
-            <div class="col-sm-2" style="border: 1px solid grey;text-align: center;"> 
-                <h4>
-                    Quality
-                </h4>
-                <div class="circleDept">
-                    
-                    <div class="circleSolved"><h4 style="margin: 12px;color: white">10</h4></div>
-
-                    <div class="circleUnsolved"><h4 style="margin: 12px;color: white">10</h4></div>
-                     <h1 style="margin: 30px;color: white">10</h1>
-                </div>
-            </div>
-            <div class="col-sm-2" style="border: 1px solid grey;text-align: center;">
-                <h4>
-                    Methods
-                </h4>
-                <div class="circleDept">
-                    
-                    <div class="circleSolved"><h4 style="margin: 12px;color: white">10</h4></div>
-
-                    <div class="circleUnsolved"><h4 style="margin: 12px;color: white">10</h4></div>
-                     <h1 style="margin: 30px;color: white">10</h1>
-                </div>
-            </div>
             
+                    <div class="input-group mb-3 col-sm-12 d-flex justify-content-center" style=";margin-top: 20px;">
+                    <a href="departments.php"  class="btn btn-danger btn-lg active" role="button" type="button" aria-pressed="true"  style="border-radius: 20px;">Go to Departments</a>
+                    </div>
+                
         </div>
+
+        
            
             <div style="height: 100px;"></div>
         </div>

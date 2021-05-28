@@ -1,5 +1,5 @@
 <?php
 session_start();
-$_SESSION['min']=$_POST['min'];
-$_SESSION['sec']=$_POST['sec'];
+$_SESSION['mins']=$_POST['mins'];
+$_SESSION['secs']=$_POST['secs'];
 ?>

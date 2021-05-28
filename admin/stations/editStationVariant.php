@@ -9,7 +9,7 @@
 	$sql = "UPDATE `$tableName` SET variant = '$newVariant' WHERE stationno = '$stationname'";
 
 	if ($conn->query($sql) === TRUE) {
-	  header("Location: station.php");
+	  header("Location: variant.php");
 	}
 
 	$conn->close();

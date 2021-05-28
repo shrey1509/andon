@@ -3,21 +3,21 @@
 	include '../../resources/connect.php';
 	$tableName = "variant";
 
-	$variant = $_POST["variantnamedelete"];
+	$variant = $_POST["deleteVar"];
 
-	$sql1 = "SELECT * from $tableName where variantno = '$variant'";
+	$sql1 = "SELECT * from $tableName where variantname = '$variant'";
 
 	$result = $conn->query($sql1);
 	$row = $result->fetch_assoc();
-	$path = $row['pdfpath'];
+	// $path = $row['pdfpath'];
 
-	$serverPath = str_replace("%", "/", $path);
+	// $serverPath = str_replace("%", "/", $path);
 	
+	$foreignSql ="SET FOREIGN_KEY_CHECKS=OFF";
+	$sql = "DELETE FROM `$tableName` WHERE variantname = '$variant'";
 
-	$sql = "DELETE FROM `$tableName` WHERE variantno = '$variant'";
-
-	if ($conn->query($sql) === TRUE) {
-		unlink($serverPath);
+	if ($conn->query($foreignSql) === TRUE && $conn->query($sql) === TRUE) {
+		// unlink($serverPath);
 	  header("Location: variant.php");
 	}
 	else

@@ -10,6 +10,9 @@
         $row = $result->fetch_assoc();
         $variant = "variant";
         $variantSql = "SELECT * FROM $variant";
+        $sql2 = "SELECT * FROM $variant";
+        $line = "line";
+        $lineSql = "SELECT * FROM $line";
         // $question = "question";
         // $questionSql = "SELECT * FROM $question";
         // $result2 = $conn->query($sql2);
@@ -65,38 +68,71 @@
                     </div>
                 </div>
             </div> -->
+            <div class="container">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="add-tab" data-toggle="tab" href="#Add" role="tab" aria-controls="home" aria-selected="true">Add Instruction & PDF/PPT</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="delete-tab" data-toggle="tab" href="#Delete" role="tab" aria-controls="profile" aria-selected="false">Delete Instruction</a>
+                  </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="change-pdf-tab" data-toggle="tab" href="#change-pdf" role="tab" aria-controls="profile" aria-selected="false">Change Pdf</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="edit-tab" data-toggle="tab" href="#Edit" role="tab" aria-controls="profile" aria-selected="false">Add/Edit Instruction</a>
+                    </li>
+                </ul>
 
-            <div class="row" style="justify-content: center;align-content: center; margin-top: 10px;">
-                <h2>Add/Delete/Edit Question</h2>
-            </div>
-            <div class="row" style="margin-right: 20px; margin-left: 20px;">
-                <div class="col-md-1"></div>
-                <div class="col-md-5 formContainerAdmin">
-                    <h4 style="text-align: center;">Add Question</h4>
-                    <form action="addquestion.php" method="post" id="addQuestionForm">
-                        <div class="form-group">
-                            <div class="row" style="margin-top: 5px;">
-                               <label for="variantname" style="font-weight: bold;">Select Variant Name:</label>
-                                <select class="form-control" id="variantname" name="variantname">
-                                    <option value="" selected="true" disabled="true">Select</option>
-                                    <?php 
-                                        $variantResult = $conn->query($variantSql);
-                                        while ($row=$variantResult->fetch_assoc()) {
-                                            echo '<option value="'.$row['variantno'].'">'.$row['variantname']."#".$row['serial'].'</option>';
-                                        }
-                                    ?>
-                                    
+<div class="tab-content">
+<div class="tab-pane active" id="Add" role="tabpanel" aria-labelledby="add-tab">
+         <div class="row" style="margin-right: 20px;margin-top: 50px; margin-left: 20px;justify-content: center;align-content: center">
+             <div class="col-md-1"></div>
+             <div class="col-md-5 formContainerAdmin">
+                 <h4 style="text-align: center;">Add Instruction</h4>
+                 <form action="addquestion.php" method="post" id="addQuestionForm" enctype="multipart/form-data">
+                     <div class="form-group">
+                         <div class="row" style="margin-top: 5px;">
+                           <label for="lineVar" style="font-weight: bold;">Select Line No:</label>
+                            <select class="form-control" id="lineVar" name="lineVar">
+                                <option value="" selected="true" disabled="true">Select Line</option>
+                                <?php 
+                                    $lineResult = $conn->query($lineSql);
+                                    while ($row=$lineResult->fetch_assoc()) {
+                                        echo '<option value="'.$row['lineno'].'">'.$row['linename'].'</option>';
+                                    }
+                                ?>
+                                
+                            </select>
+                            <div class="invalid-feedback">Invalid Input</div>
+                        </div>
+                        <div class="row">
+                               <label for="stationVar" style="font-weight: bold;">Select Station Name:</label>
+                                <select class="form-control" id="stationVar" name="stationVar">
+                                    <option value="" disabled selected="true">Select Station</option> 
                                 </select>
                                 <div class="invalid-feedback">Invalid Input</div>
                             </div>
-                            <div class="row">
-                                <label for="question" style="font-weight: bold;">Question:</label>
-                                <input type="text" class="form-control" id="question" name="question" placeholder="Enter Question"/>
+                        <div class="row" style="margin-top: 5px;">
+                                <label for="questionVar" style="font-weight: bold;">Select Variant Name:</label>
+                                <select class="form-control" id="questionVar" name="questionVar">
+                                    <option value="" disabled selected="true">Select Variant</option> 
+                                </select>
+                                <div class="invalid-feedback">Invalid Input</div>
+                        </div>
+                         <div class="row">
+                                <label for="fileToUpload" style="font-weight: bold;">Add Pdf/Ppt:</label>
+                                <input type="file" required class="form-control" id="fileToUpload" name="fileToUpload"/>
                                 <div class="invalid-feedback">Invalid Input</div>
                             </div>
-                            <div class="row">
-                                <label for="compulsoryAnswer" style="font-weight: bold;">Answers:</label>
-                                <input type="text" class="form-control" id="compulsoryAnswer" name="compulsoryAnswer" placeholder="Enter Answer"/>
+                        <!--  <div class="row">
+                             <label for="question" style="font-weight: bold;">Instruction:</label>
+                             <input type="text" class="form-control" id="question" name="question" placeholder="Enter Instruction:"/>
+                             <div class="invalid-feedback">Invalid Input</div>
+                         </div> -->
+                         <div class="row">
+                                <label for="compulsoryAnswer" style="font-weight: bold;">Add Instruction:</label>
+                                <input type="text" class="form-control" id="compulsoryAnswer" name="compulsoryAnswer" placeholder="Enter Instruction"/>
                                 <div class="invalid-feedback">Invalid Input</div>
                             </div>
                             <div id="answerTextBox"></div>
@@ -104,48 +140,242 @@
                                 <button class="btn btn-warning" type="button" onclick="addTextBox()" >Add</button>
                                 <button class="btn btn-danger" type="button" style="margin-left: 5px;" onclick="deleteTextBox()">Delete</button>
                             </div>
-                            <input type="hidden" id="sendAnswers" name="sendAnswers" value="0">
-                            <div class="row" style="margin-top: 10px; justify-content: center;">
-                                <button class="btn btn-primary" type="button" onclick="submitAdd()">Add</button>
-                            </div>
+                            
+                       
+                         <input type="hidden" id="sendAnswers" name="sendAnswers" value="0">
+                         <div class="row" style="margin-top: 10px; justify-content: center;">
+                             <button class="btn btn-primary" type="button" onclick="submitAdd()">Add</button>
+                         </div>
+                     </div>
+                 </form>
+             </div>
+
+         </div>
+</div>
+<div class="tab-pane" id="Delete" role="tabpanel" aria-labelledby="delete-tab">
+         <div class="row" style="margin-right: 20px;margin-top: 50px; margin-left: 20px;justify-content: center;align-content: center">
+             <div class="col-md-1"></div>
+            
+             <div class="col-md-5 formContainerAdmin">
+                 <h4 style="text-align: center;">Delete Instruction:</h4>
+                 <form action="deleteQuestion.php" method="post" id="addQuestionForm">
+                     <div class="form-group">
+                     <div class="row" style="margin-top: 5px;">
+                           <label for="lineDel" style="font-weight: bold;">Select Line No:</label>
+                            <select class="form-control" id="lineDel" name="lineDel">
+                                <option value="" selected="true" disabled="true">Select Line</option>
+                                <?php 
+                                    $lineResult = $conn->query($lineSql);
+                                    while ($row=$lineResult->fetch_assoc()) {
+                                        echo '<option value="'.$row['lineno'].'">'.$row['linename'].'</option>';
+                                    }
+                                ?>
+                                
+                            </select>
+                            <div class="invalid-feedback">Invalid Input</div>
                         </div>
-                    </form>
-                </div>
+                        <div class="row">
+                               <label for="stationDel" style="font-weight: bold;">Select Station Name:</label>
+                                <select class="form-control" id="stationDel" name="stationDel">
+                                    <option value="" disabled selected="true">Select Station</option> 
+                                </select>
+                                <div class="invalid-feedback">Invalid Input</div>
+                            </div>
+                        <div class="row" style="margin-top: 5px;">
+                                <label for="deleteVar" style="font-weight: bold;">Select Variant Name:</label>
+                                <select class="form-control" id="deleteVar" name="deleteVar">
+                                    <option value="" disabled selected="true">Select Variant</option> 
+                                </select>
+                                <div class="invalid-feedback">Invalid Input</div>
+                        </div>
+                         <div class="row">
+                             <label for="questiondelete" style="font-weight: bold;">Instruction:</label>
+                             <select class="form-control" id="questiondelete" name="questiondelete">
+                                 <option value="" disabled selected="true">Select Instruction:</option> 
+                             </select>
+                             <div class="invalid-feedback">Invalid Input</div>
+                         </div>
+                         <div class="row" style="margin-top: 10px; justify-content: center;">
+                             <button class="btn btn-primary" type="submit">Delete</button>
+                         </div>
+                     </div>
+                 </form>
+             </div>
+         </div>
+</div>
+
+<div class="tab-pane" id="change-pdf" role="tabpanel" aria-labelledby="change-pdf-tab">
+<div class="row" style="margin-right: 20px;margin-top: 50px; margin-left: 20px;justify-content: center;align-content: center">
+                <div class="col-md-1"></div>
+               
                 <div class="col-md-5 formContainerAdmin">
-                    <h4 style="text-align: center;">Delete Question</h4>
-                    <form action="deleteQuestion.php" method="post" id="addQuestionForm">
+                    <h4 style="text-align: center;">Change Document PDF/PPT</h4>
+                    <form action="changeDocument.php" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <div class="row" style="margin-top: 5px;">
-                               <label for="variantForDelete" style="font-weight: bold;">Select Variant Name:</label>
-                                <select class="form-control" id="variantForDelete" name="variantForDelete">
-                                    <option value="" selected="true" disabled="true">Select</option>
-                                    <?php 
-                                        $variantResult = $conn->query($variantSql);
-                                        while ($row=$variantResult->fetch_assoc()) {
-                                            echo '<option value="'.$row['variantno'].'">'.$row['variantname']."#".$row['serial'].'</option>';
-                                        }
-                                    ?>
-                                    
+                           <label for="linePdf" style="font-weight: bold;">Select Line No:</label>
+                            <select class="form-control" id="linePdf" name="linePdf">
+                                <option value="" selected="true" disabled="true">Select Line</option>
+                                <?php 
+                                    $lineResult = $conn->query($lineSql);
+                                    while ($row=$lineResult->fetch_assoc()) {
+                                        echo '<option value="'.$row['lineno'].'">'.$row['linename'].'</option>';
+                                    }
+                                ?>
+                                
+                            </select>
+                            <div class="invalid-feedback">Invalid Input</div>
+                        </div>
+                        <div class="row">
+                               <label for="stationPdf" style="font-weight: bold;">Select Station Name:</label>
+                                <select class="form-control" id="stationPdf" name="stationPdf">
+                                    <option value="" disabled selected="true">Select Station</option> 
                                 </select>
                                 <div class="invalid-feedback">Invalid Input</div>
                             </div>
-                            <div class="row">
-                                <label for="question" style="font-weight: bold;">Question:</label>
-                                <select class="form-control" id="questiondelete" name="questiondelete">
-                                    <option value="" disabled selected="true">Select Question</option> 
+                            <div class="row" style="margin-top: 5px;">
+                                <label for="pdfVar" style="font-weight: bold;">Select Variant Name:</label>
+                                <select class="form-control" id="pdfVar" name="pdfVar">
+                                    <option value="" disabled selected="true">Select Variant</option> 
                                 </select>
+                                <div class="invalid-feedback">Invalid Input</div>
+                        </div>
+                            <div class="row" style="margin-top: 5px;">
+                                <label for="newSerialName" style="font-weight: bold;"> Change PDF/PPT:</label>
+                               <input type="file" required class="form-control" id="fileToUploadChange" name="fileToUploadChange"/>
                                 <div class="invalid-feedback">Invalid Input</div>
                             </div>
                             <div class="row" style="margin-top: 10px; justify-content: center;">
-                                <button class="btn btn-primary" type="submit">Delete</button>
+                                <button class="btn btn-primary" type="submit">Edit</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
+
+</div>
+<div class="tab-pane" id="Edit" role="tabpanel" aria-labelledby="edit-tab">
+         <div class="row" style="margin-right: 20px;margin-top: 50px; margin-left: 20px;justify-content: center;align-content: center">
+            
+             <div class="col-md-5 formContainerAdmin">
+                 <h4 style="text-align: center;">Add Instruction</h4>
+                 <form action="addOnlyQuestion.php" method="post" id="addQuestionForm1" >
+                     <div class="form-group">
+                         <div class="row" style="margin-top: 5px;">
+                           <label for="lineVar" style="font-weight: bold;">Select Line No:</label>
+                            <select class="form-control" id="lineAddVar" name="lineAddVar">
+                                <option value="" selected="true" disabled="true">Select Line</option>
+                                <?php 
+                                    $lineResult = $conn->query($lineSql);
+                                    while ($row=$lineResult->fetch_assoc()) {
+                                        echo '<option value="'.$row['lineno'].'">'.$row['linename'].'</option>';
+                                    }
+                                ?>
+                                
+                            </select>
+                            <div class="invalid-feedback">Invalid Input</div>
+                        </div>
+                        <div class="row">
+                               <label for="stationAddVar" style="font-weight: bold;">Select Station Name:</label>
+                                <select class="form-control" id="stationAddVar" name="stationAddVar">
+                                    <option value="" disabled selected="true">Select Station</option> 
+                                </select>
+                                <div class="invalid-feedback">Invalid Input</div>
+                            </div>
+                        <div class="row" style="margin-top: 5px;">
+                                <label for="questionAddVar" style="font-weight: bold;">Select Variant Name:</label>
+                                <select class="form-control" id="questionAddVar" name="questionAddVar">
+                                    <option value="" disabled selected="true">Select Variant</option> 
+                                </select>
+                                <div class="invalid-feedback">Invalid Input</div>
+                        </div>
+    
+                         <div class="row">
+                                <label for="compulsoryAddAnswer" style="font-weight: bold;">Add Instruction:</label>
+                                <input type="text" class="form-control" id="compulsoryAddAnswer" name="compulsoryAddAnswer" placeholder="Enter Instruction"/>
+                                <div class="invalid-feedback">Invalid Input</div>
+                            </div>
+                            <div id="answerAddTextBox"></div>
+                            <div class="row" style="margin-top: 5px;">
+                                <button class="btn btn-warning" type="button" onclick="addTextBox1()" >Add</button>
+                                <button class="btn btn-danger" type="button" style="margin-left: 5px;" onclick="deleteTextBox1()">Delete</button>
+                            </div>
+                            
+                       
+                         <input type="hidden" id="sendAddAnswers" name="sendAddAnswers" value="0">
+                         <div class="row" style="margin-top: 10px; justify-content: center;">
+                             <button class="btn btn-primary" type="button" onclick="submitAdd1()">Add</button>
+                         </div>
+                     </div>
+                 </form>
+             </div>
+
+             <div class="col-md-5 formContainerAdmin">
+                 <h4 style="text-align: center;">Edit Instruction:</h4>
+                 <form action="editQuestion.php" method="post" id="addQuestionForm2">
+                     <div class="form-group">
+                     <div class="row" style="margin-top: 5px;">
+                           <label for="lineEdit" style="font-weight: bold;">Select Line No:</label>
+                            <select class="form-control" id="lineEdit" name="lineEdit">
+                                <option value="" selected="true" disabled="true">Select Line</option>
+                                <?php 
+                                    $lineResult = $conn->query($lineSql);
+                                    while ($row=$lineResult->fetch_assoc()) {
+                                        echo '<option value="'.$row['lineno'].'">'.$row['linename'].'</option>';
+                                    }
+                                ?>
+                                
+                            </select>
+                            <div class="invalid-feedback">Invalid Input</div>
+                        </div>
+                        <div class="row">
+                               <label for="stationEdit" style="font-weight: bold;">Select Station Name:</label>
+                                <select class="form-control" id="stationEdit" name="stationEdit">
+                                    <option value="" disabled selected="true">Select Station</option> 
+                                </select>
+                                <div class="invalid-feedback">Invalid Input</div>
+                            </div>
+                        <div class="row" style="margin-top: 5px;">
+                                <label for="editVar" style="font-weight: bold;">Select Variant Name:</label>
+                                <select class="form-control" id="editVar" name="editVar">
+                                    <option value="" disabled selected="true">Select Variant</option> 
+                                </select>
+                                <div class="invalid-feedback">Invalid Input</div>
+                        </div>
+                         <div class="row">
+                             <label for="questionEdit" style="font-weight: bold;">Instruction:</label>
+                             <select class="form-control" id="questionEdit" name="questionEdit">
+                                 <option value="" disabled selected="true">Select Instruction:</option> 
+                             </select>
+                             <div class="invalid-feedback">Invalid Input</div>
+                         </div>
+                         <div class="row">
+                                <label for="editInstruction" style="font-weight: bold;">New Instruction:</label>
+                                <input type="text" class="form-control" id="editInstruction" name="editInstruction" placeholder="Enter Instruction"/>
+                                <div class="invalid-feedback">Invalid Input</div>
+                            </div>
+                         <div class="row" style="margin-top: 10px; justify-content: center;">
+                             <button class="btn btn-primary" type="submit">Edit</button>
+                         </div>
+                     </div>
+                 </form>
+             </div>
+         </div>
+</div>
+
+
+         <!--    <div class="row" style="justify-content: center;align-content: center; margin-top: 10px;">
+                <h2>Add/Delete/Edit Instruction</h2>
+            </div> -->
+   
             <input type="hidden" id="countOfAnswer" value="0">
+            <input type="hidden" id="countOfAddAnswer" value="0">
+
             
             <div style="height: 100px;"></div>
+            </div>
+        </div>
+
         </div>
     </div>
     <footer style="background-color: #2596be;height: 50px;">
@@ -174,6 +404,238 @@
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
             });
         });
+               $('#lineVar').on('change',function(){
+                $line=$(this).val();
+                console.log($line);
+                if ($line) {
+                    $.ajax({
+                        type:'POST',
+                        url:'fetchLineData.php',
+                        data:'line='+$line,
+                        
+                        success:function(html)
+                        {
+                            //console.log($line);
+                            console.log(html);
+                            $('#stationVar').html(html);
+
+                        }
+
+                    });
+                }
+                else{
+                    $('#stationVar').html('<option value="">Invalid</option>');
+                }
+        });
+                $('#lineVar').on('change',function(){
+                $line=$(this).val();
+                console.log($line);
+                if ($line) {
+                    $.ajax({
+                        type:'POST',
+                        url:'fetchVariantData.php',
+                        data:'line='+$line,
+                        
+                        success:function(html)
+                        {
+                            //console.log($line);
+                            console.log(html);
+                            $('#questionVar').html(html);
+
+                        }
+
+                    });
+                }
+                else{
+                    $('#questionVar').html('<option value="">Invalid</option>');
+                }
+        });
+                 $('#lineDel').on('change',function(){
+                $line=$(this).val();
+                console.log($line);
+                if ($line) {
+                    $.ajax({
+                        type:'POST',
+                        url:'fetchLineData.php',
+                        data:'line='+$line,
+                        
+                        success:function(html)
+                        {
+                            //console.log($line);
+                            console.log(html);
+                            $('#stationDel').html(html);
+
+                        }
+
+                    });
+                }
+                else{
+                    $('#stationDel').html('<option value="">Invalid</option>');
+                }
+        });
+                $('#lineDel').on('change',function(){
+                $line=$(this).val();
+                console.log($line);
+                if ($line) {
+                    $.ajax({
+                        type:'POST',
+                        url:'fetchVariantData.php',
+                        data:'line='+$line,
+                        
+                        success:function(html)
+                        {
+                            //console.log($line);
+                            console.log(html);
+                            $('#deleteVar').html(html);
+
+                        }
+
+                    });
+                }
+                else{
+                    $('#deleteVar').html('<option value="">Invalid</option>');
+                }
+        });
+                 $('#linePdf').on('change',function(){
+                $line=$(this).val();
+                console.log($line);
+                if ($line) {
+                    $.ajax({
+                        type:'POST',
+                        url:'fetchLineData.php',
+                        data:'line='+$line,
+                        
+                        success:function(html)
+                        {
+                            //console.log($line);
+                            console.log(html);
+                            $('#stationPdf').html(html);
+
+                        }
+
+                    });
+                }
+                else{
+                    $('#stationPdf').html('<option value="">Invalid</option>');
+                }
+        });
+                $('#linePdf').on('change',function(){
+                $line=$(this).val();
+                console.log($line);
+                if ($line) {
+                    $.ajax({
+                        type:'POST',
+                        url:'fetchVariantData.php',
+                        data:'line='+$line,
+                        
+                        success:function(html)
+                        {
+                            //console.log($line);
+                            console.log(html);
+                            $('#pdfVar').html(html);
+
+                        }
+
+                    });
+                }
+                else{
+                    $('#pdfVar').html('<option value="">Invalid</option>');
+                }
+        });
+
+         $('#lineAddVar').on('change',function(){
+                $line=$(this).val();
+                console.log($line);
+                if ($line) {
+                    $.ajax({
+                        type:'POST',
+                        url:'fetchLineData.php',
+                        data:'line='+$line,
+                        
+                        success:function(html)
+                        {
+                            //console.log($line);
+                            console.log(html);
+                            $('#stationAddVar').html(html);
+
+                        }
+
+                    });
+                }
+                else{
+                    $('#stationAddVar').html('<option value="">Invalid</option>');
+                }
+        });
+                $('#lineAddVar').on('change',function(){
+                $line=$(this).val();
+                console.log($line);
+                if ($line) {
+                    $.ajax({
+                        type:'POST',
+                        url:'fetchVariantData.php',
+                        data:'line='+$line,
+                        
+                        success:function(html)
+                        {
+                            //console.log($line);
+                            console.log(html);
+                            $('#questionAddVar').html(html);
+
+                        }
+
+                    });
+                }
+                else{
+                    $('#questionAddVar').html('<option value="">Invalid</option>');
+                }
+        });
+
+                 $('#lineEdit').on('change',function(){
+                $line=$(this).val();
+                console.log($line);
+                if ($line) {
+                    $.ajax({
+                        type:'POST',
+                        url:'fetchLineData.php',
+                        data:'line='+$line,
+                        
+                        success:function(html)
+                        {
+                            //console.log($line);
+                            console.log(html);
+                            $('#stationEdit').html(html);
+
+                        }
+
+                    });
+                }
+                else{
+                    $('#stationEdit').html('<option value="">Invalid</option>');
+                }
+        });
+                $('#lineEdit').on('change',function(){
+                $line=$(this).val();
+                console.log($line);
+                if ($line) {
+                    $.ajax({
+                        type:'POST',
+                        url:'fetchVariantData.php',
+                        data:'line='+$line,
+                        
+                        success:function(html)
+                        {
+                            //console.log($line);
+                            console.log(html);
+                            $('#editVar').html(html);
+
+                        }
+
+                    });
+                }
+                else{
+                    $('#editVar').html('<option value="">Invalid</option>');
+                }
+        });
         $('#logoutButton').on('click', logout);
 
         function logout() {
@@ -184,7 +646,7 @@
             var countOfAnswer = document.getElementById('countOfAnswer').value;
             countOfAnswer++;
             // alert(countOfAnswer);
-            var string = '<div class="row" id="answerRow'+countOfAnswer+'"><label for="answer'+countOfAnswer+'" style="font-weight: bold;">Answers:</label><input type="text" class="form-control" id="answer'+countOfAnswer+'" name="answer'+countOfAnswer+'" placeholder="Enter Answer"/><div class="invalid-feedback">Invalid Input</div></div>';
+            var string = '<div class="row" id="answerRow'+countOfAnswer+'"><label for="answer'+countOfAnswer+'" style="font-weight: bold;">Instruction:</label><input type="text" class="form-control" id="answer'+countOfAnswer+'" name="answer'+countOfAnswer+'" placeholder="Enter Instruction"/><div class="invalid-feedback">Invalid Input</div></div>';
             var div = document.getElementById("answerTextBox");
             div.insertAdjacentHTML( 'beforeend', string );
             document.getElementById('countOfAnswer').value = countOfAnswer;
@@ -197,6 +659,26 @@
                 document.getElementById(row).remove();
                 countOfAnswer--;
                 document.getElementById('countOfAnswer').value = countOfAnswer;
+            }
+        }
+
+               function addTextBox1() {
+            var countOfAnswer = document.getElementById('countOfAddAnswer').value;
+            countOfAnswer++;
+            // alert(countOfAnswer);
+            var string = '<div class="row" id="answerAddRow'+countOfAnswer+'"><label for="answerAdd'+countOfAnswer+'" style="font-weight: bold;">Instruction:</label><input type="text" class="form-control" id="answerAdd'+countOfAnswer+'" name="answerAdd'+countOfAnswer+'" placeholder="Enter Instruction"/><div class="invalid-feedback">Invalid Input</div></div>';
+            var div = document.getElementById("answerAddTextBox");
+            div.insertAdjacentHTML( 'beforeend', string );
+            document.getElementById('countOfAddAnswer').value = countOfAnswer;
+        }
+
+        function deleteTextBox1() {
+            var countOfAnswer = document.getElementById('countOfAddAnswer').value;
+            if(countOfAnswer>=1){
+                var row = "answerAddRow" + countOfAnswer;
+                document.getElementById(row).remove();
+                countOfAnswer--;
+                document.getElementById('countOfAddAnswer').value = countOfAnswer;
             }
         }
 
@@ -219,17 +701,36 @@
             form.submit();
         }
 
-        $('#variantForDelete').on('change',function(){
-                $variant=$(this).val();
-                if ($variant) {
+            function submitAdd1() {
+            var form = document.getElementById('addQuestionForm1');
+            var countOfAnswer = document.getElementById('countOfAddAnswer').value;
+            var compulsoryAnswer = document.getElementById("compulsoryAddAnswer").value;
+            var answer = compulsoryAnswer + "; ";
+            for (var i = 1; i <= countOfAnswer; i++) {
+                var answerRow = "answerAdd" + i;
+                console.log(answerRow)
+                if(i==countOfAnswer){
+                    answer +=  document.getElementById(answerRow).value;
+                } else {
+                    answer +=  document.getElementById(answerRow).value + "; ";
+                }
+            }
+            document.getElementById("sendAddAnswers").value = answer;
+            console.log(answer);
+            form.submit();
+        }
+
+        $('#stationDel').on('change',function(){
+                $stationDel=$(this).val();
+                if ($stationDel) {
                     $.ajax({
                         type:'POST',
                         url:'fetchQuestions.php',
-                        data:'variant='+$variant,
+                        data:'stationDel='+$stationDel,
                         success:function(html)
                         {
-                            //console.log($variant);
-                            // console.log(html);
+                            console.log($stationDel);
+                            console.log(html);
                             $('#questiondelete').html(html);
 
                         }
@@ -238,6 +739,28 @@
                 }
                 else{
                     $('#questiondelete').html('<option value="">Invalid</option>');
+                }
+            });
+
+         $('#stationEdit').on('change',function(){
+                $stationDel=$(this).val();
+                if ($stationDel) {
+                    $.ajax({
+                        type:'POST',
+                        url:'fetchQuestions.php',
+                        data:'stationDel='+$stationDel,
+                        success:function(html)
+                        {
+                            console.log($stationDel);
+                            console.log(html);
+                            $('#questionEdit').html(html);
+
+                        }
+
+                    });
+                }
+                else{
+                    $('#questionEdit').html('<option value="">Invalid</option>');
                 }
             });
     </script>
